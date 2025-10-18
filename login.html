@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>eTax Mobile - Đăng nhập</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: white;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            /* ✅ LOẠI BỎ VIEWPORT HOÀN TOÀN */
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* Background Image - Full Screen */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('assets/bglogin.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            background-color: #000;
+            opacity: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Central Emblem - Quốc huy mờ phía sau */
+        .central-emblem {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            opacity: 0.08;
+            width: 350px;
+            /* Kích thước lớn hơn */
+            height: 350px;
+            background: url('assets/logo.png') no-repeat center center;
+            /* Sử dụng logo.png */
+            background-size: contain;
+        }
+
+        .emblem-circle,
+        .emblem-star,
+        .emblem-star::before,
+        .emblem-star::after {
+            display: none;
+            /* Ẩn các phần tử CSS tạo emblem cũ */
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 44px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-right {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .status-icon {
+            width: 18px;
+            height: 12px;
+            background: white;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .status-icon::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 6px;
+            background: white;
+            border-radius: 1px;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            margin-top: 70px;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+
+        .app-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+            margin-top: 10px;
+        }
+
+        /* Login Form */
+        .login-form-container {
+            position: relative;
+            z-index: 4;
+            padding: 0 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            filter: brightness(0) invert(0.6);
+        }
+
+        .form-input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            flex: 1;
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .password-toggle {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-left: 15px;
+            filter: brightness(0) invert(0.6);
+        }
+
+        .forgot-links {
+            text-align: right;
+            margin-bottom: 25px;
+        }
+
+        .forgot-link {
+            color: #FFD700;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .login-button-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .login-button {
+            background: #DC143C;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+        }
+
+        .login-button:hover {
+            background: #B71C1C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5);
+        }
+
+        .faceid-icon {
+            width: 54px;
+            /* gần bằng chiều cao nút để cân đối */
+            height: 54px;
+            cursor: pointer;
+            opacity: 1;
+            /* Giữ màu đỏ gốc của icon, thêm glow nhẹ để nổi trên nền tối */
+            filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.5));
+        }
+
+        /* VNeID Button */
+        .vneid-container {
+            position: relative;
+            z-index: 4;
+            padding: 0 25px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .vneid-button {
+            width: 100%;
+            background: white;
+            border: none;
+            border-radius: 12px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .vneid-button:hover {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+        }
+
+        .vneid-text {
+            color: #333;
+            text-align: left;
+            flex: 1;
+        }
+
+        .vneid-text .line1 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .vneid-text .line2 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            text-align: center;
+        }
+
+        .vneid-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+        }
+
+        /* Register Section */
+        .register-section {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            padding: 0 25px;
+            margin-bottom: 150px;
+        }
+
+        .register-text {
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .register-link {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+        .foreigner-text {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 15px;
+            padding: 0 10px;
+        }
+
+        .foreigner-link {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .foreigner-link:hover {
+            text-decoration: underline;
+        }
+
+
+
+        /* Error Message */
+        .error-message {
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+
+            .login-form-container,
+            .vneid-container,
+            .register-section {
+                padding: 0 20px;
+            }
+
+            .app-title {
+                font-size: 24px;
+            }
+
+            .logo-text {
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Central Emblem -->
+        <div class="central-emblem"></div>
+
+
+
+        <!-- Logo Section -->
+        <div class="logo-section fade-in">
+            <div class="logo">
+                <img src="assets/logo.png" alt="THUẾ NHÀ NƯỚC">
+            </div>
+            <h1 class="app-title">eTax Mobile</h1>
+        </div>
+
+        <!-- Login Form -->
+        <div class="login-form-container fade-in">
+            <form id="loginForm">
+                <div class="error-message" id="errorMsg"></div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <img src="assets/avatar.png" alt="User" class="input-icon">
+                        <input type="text" id="taxId" class="form-input" placeholder="Mã số thuế"
+                            autocomplete="username" value="8198700370">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <img src="assets/icon-doimk.png" alt="Lock" class="input-icon">
+                        <input type="password" id="password" class="form-input" placeholder="Mật khẩu"
+                            autocomplete="current-password">
+                        <img src="assets/icon-change.png" alt="Eye" class="password-toggle" id="togglePassword">
+                    </div>
+                </div>
+
+                <div class="forgot-links">
+                    <a href="#" class="forgot-link" onclick="return false;">Quên tài khoản (mã số thuế)?</a>
+                    <a href="#" class="forgot-link" onclick="return false;">Quên mật khẩu ?</a>
+                </div>
+
+                <div class="login-button-container">
+                    <button type="submit" class="login-button" id="loginBtn">Đăng nhập</button>
+                    <img src="assets/faceid.png" alt="FaceID" class="faceid-icon">
+                </div>
+            </form>
+        </div>
+
+        <!-- VNeID Button -->
+        <div class="vneid-container fade-in">
+            <button class="vneid-button" id="vneidBtn">
+                <div class="vneid-text">
+                    <div class="line1">Đăng nhập bằng tài khoản</div>
+                    <div class="line2">Định danh điện tử</div>
+                </div>
+                <img src="assets/vnid.png" alt="VNeID" class="vneid-icon">
+            </button>
+        </div>
+
+        <!-- Register Section -->
+        <div class="register-section fade-in">
+            <div class="register-text">
+                Bạn chưa có tài khoản? <a href="#" class="register-link" onclick="return false;">Đăng ký ngay</a>
+            </div>
+            <div class="foreigner-text">
+                Người nước ngoài hoặc người Việt Nam sống ở nước ngoài không có số định danh cá nhân chưa có mã số thuế?
+                <a href="#" class="foreigner-link" onclick="return false;">Đăng ký thuế ngay.</a>
+            </div>
+        </div>
+
+        <!-- Bottom Icons -->
+        <div style="position: fixed; bottom: 20px; left: 0; right: 0; z-index: 4; display: flex; justify-content: space-around; padding: 0 40px;">
+            <div style="display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: 0.8; transition: opacity 0.3s;" onclick="openQR()">
+                <img src="assets/icon-qr.png" alt="QR tem" style="width: 32px; height: 32px; margin-bottom: 4px; filter: brightness(0) invert(1);">
+                <span style="font-size: 10px; color: white; text-align: center;">QR tem</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: 0.8; transition: opacity 0.3s;" onclick="return false;">
+                <img src="assets/tienich.png" alt="Tiện ích" style="width: 32px; height: 32px; margin-bottom: 4px; filter: brightness(0) invert(1);">
+                <span style="font-size: 10px; color: white; text-align: center;">Tiện ích</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: 0.8; transition: opacity 0.3s;" onclick="return false;">
+                <img src="assets/hotro.png" alt="Hỗ trợ" style="width: 32px; height: 32px; margin-bottom: 4px; filter: brightness(0) invert(1);">
+                <span style="font-size: 10px; color: white; text-align: center;">Hỗ trợ</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: 0.8; transition: opacity 0.3s;" onclick="shareApp()">
+                <img src="assets/chiase.png" alt="Chia sẻ" style="width: 32px; height: 32px; margin-bottom: 4px; filter: brightness(0) invert(1);">
+                <span style="font-size: 10px; color: white; text-align: center;">Chia sẻ</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="src/admin-essential/mock-data-generator.js"></script>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = this;
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.src = 'assets/icon-xoatk.png';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.src = 'assets/icon-change.png';
+            }
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const taxId = document.getElementById('taxId').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const loginBtn = document.getElementById('loginBtn');
+
+            function showError(msg) {
+                errorMsg.textContent = msg;
+                errorMsg.style.display = 'block';
+            }
+
+            errorMsg.style.display = 'none';
+
+            if (!taxId || !password) {
+                showError('Vui lòng nhập đầy đủ thông tin');
+                return;
+            }
+
+            try {
+                loginBtn.textContent = 'Đang đăng nhập...';
+                loginBtn.disabled = true;
+
+                // Sử dụng mock data generator thay vì fetch users.json
+                console.log('🔍 Debug Login - MST:', taxId, 'Password:', password);
+
+                // Check if mock data generator is loaded
+                if (typeof validateUserCredentials === 'undefined') {
+                    console.error('❌ Mock data generator not loaded!');
+                    showError('Hệ thống chưa sẵn sàng. Vui lòng refresh trang.');
+                    return;
+                }
+
+                const user = validateUserCredentials(taxId, password);
+                console.log('🔍 User validation result:', user);
+
+                if (!user) {
+                    console.log('❌ Login failed - invalid credentials');
+                    showError('Mã số thuế hoặc mật khẩu không đúng');
+                    return;
+                }
+
+                console.log('✅ Login successful, creating session...');
+                // Tạo user session
+                createUserSession(taxId, user);
+
+                // Điều hướng sang trang chính
+                window.location.href = 'src/pages/index.html';
+            } catch (err) {
+                showError('Có lỗi khi đăng nhập. Vui lòng thử lại.');
+                console.error(err);
+            } finally {
+                loginBtn.textContent = 'Đăng nhập';
+                loginBtn.disabled = false;
+            }
+        });
+
+        // VNeID button click
+        document.getElementById('vneidBtn').addEventListener('click', function () {
+            // Không hiển thị thông báo gì, chỉ lag một chút
+            setTimeout(() => {
+                // Không làm gì cả
+            }, 100);
+        });
+
+        // Bottom navigation functions
+        function openQR() {
+            // Không hiển thị thông báo gì, chỉ lag một chút
+            setTimeout(() => {
+                // Không làm gì cả
+            }, 100);
+        }
+
+        function shareApp() {
+            // Không hiển thị thông báo gì, chỉ lag một chút
+            setTimeout(() => {
+                // Không làm gì cả
+            }, 100);
+        }
+
+        // FaceID icon click
+        document.querySelector('.faceid-icon').addEventListener('click', function () {
+            // Không hiển thị thông báo gì, chỉ lag một chút
+            setTimeout(() => {
+                // Không làm gì cả
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

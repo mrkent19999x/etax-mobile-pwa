@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <script src="/src/services/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Thông tin chi tiết - eTax Mobile</title>
+<link rel="stylesheet" href="../../css/etax-common.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .detail-item:last-child {
+    border-bottom: none;
+  }
+
+  .detail-label {
+    color: #666;
+    font-size: 14px;
+    min-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .detail-value {
+    color: #333;
+    font-size: 14px;
+    text-align: right;
+    flex: 1;
+    font-weight: 500;
+  }
+
+  .amount-highlight {
+    color: #dc3545;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .status-highlight {
+    color: #333;
+    font-weight: 600;
+  }
+</style>
+</head>
+
+<body>
+  <div class="phone-frame pwa-locked">
+    <header class="topbar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 100px; margin: 0; background-color: #b71c1c; color: white; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;">
+      <div class="left-menu" onclick="history.back()" style="font-size: 24px; color: white; padding-left: 10px; cursor: pointer;">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+      <div class="center-logo" style="display: flex; align-items: center; justify-content: center; flex-direction: column; flex-grow: 1; text-align: center; margin-left: 30px; margin-top: 15px;">
+        <span style="font-weight: bold; font-size: 17px; letter-spacing: 0.5px;">Thông tin chi tiết</span>
+      </div>
+      <div class="right-icon" style="display: flex; align-items: center; gap: 10px; padding-right: 10px;">
+        <button class="home-btn" onclick="window.location.href='index.html'" style="background: none; border: none; color: white; font-size: 20px; padding: 12px; cursor: pointer; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+          <i class="fas fa-home"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="content" style="position: fixed; top: 100px; left: 0; right: 0; bottom: 0; background: white; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px;">
+      <div class="card" id="taxDetailCard" style="background: white; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <!-- Dynamic content will be loaded here -->
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Load tax detail data với đồng bộ từ Data Manager
+    document.addEventListener('DOMContentLoaded', function() {
+      const loggedInMST = localStorage.getItem('etax_logged_in_user');
+      const taxDetailData = localStorage.getItem('selectedTaxDetail');
+
+      if (taxDetailData && loggedInMST) {
+        const data = JSON.parse(taxDetailData);
+        displayTaxDetail(data);
+        console.log('✅ Tax detail loaded from localStorage for MST:', loggedInMST);
+      } else if (loggedInMST) {
+        // Lấy dữ liệu mặc định từ Data Manager
+        const userData = window.dataManager ? window.dataManager.getUserData(loggedInMST) : null;
+
+        if (userData && userData.taxInfo && userData.taxInfo.items && userData.taxInfo.items.length > 0) {
+          // Hiển thị khoản thuế đầu tiên làm mặc định
+          const defaultTaxItem = userData.taxInfo.items[0];
+          displayTaxDetail(defaultTaxItem);
+          console.log('✅ Default tax detail loaded from Data Manager for MST:', loggedInMST);
+        } else {
+          // Fallback to hardcoded default data
+          displayTaxDetail({
+            id: '04057866369400001',
+            decision: '1866/TB-CCT',
+            date: '07/01/2025',
+            office: 'Đội Thuế thành phố Hạ Long',
+            chapter: '757',
+            period: '00/06/2025',
+            type: 'Thuế giá trị gia tăng hàng sản xuất, kinh doanh trong nước (gồm cả dịch vụ trong lĩnh vực dầu khí) (1701)',
+            region: 'Thành phố Hạ Long (193HH)',
+            dueDate: '30/06/2025',
+            amount: '1,250,000 VND',
+            paid: '0 VND',
+            status: 'Còn phải nộp',
+            reference: '11020250031907891'
+          });
+        }
+      } else {
+        console.log('⚠️ No MST or tax detail data found');
+      }
+    });
+
+    function displayTaxDetail(data) {
+      const container = document.getElementById('taxDetailCard');
+      container.innerHTML = `
+        <div class="detail-item">
+          <div class="detail-label">Thứ tự thanh toán</div>
+          <div class="detail-value">1</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">ID khoản phải nộp</div>
+          <div class="detail-value">${data.id}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Số quyết định/Số thông báo</div>
+          <div class="detail-value">${data.decision}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Ngày quyết định/ Ngày thông báo</div>
+          <div class="detail-value">${data.date}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Tên cơ quan thu</div>
+          <div class="detail-value">${data.office}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Chương</div>
+          <div class="detail-value">${data.chapter}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Kỳ thuế</div>
+          <div class="detail-value">${data.period}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Tiêu mục</div>
+          <div class="detail-value">${data.type}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Địa bàn hành chính</div>
+          <div class="detail-value">${data.region}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Hạn nộp</div>
+          <div class="detail-value">${data.dueDate}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Số tiền</div>
+          <div class="detail-value amount-highlight">${data.amount}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Số tiền đã nộp</div>
+          <div class="detail-value">${data.paid}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Loại nghiệp vụ</div>
+          <div class="detail-value status-highlight">${data.status}</div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Số tham chiếu</div>
+          <div class="detail-value">${data.reference}</div>
+        </div>
+      `;
+    }
+
+    // PWA Lock
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) e.preventDefault();
+      lastTouchEnd = now;
+    }, false);
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => e.preventDefault());
+    document.addEventListener('touchstart', function(e) {
+      if (e.touches.length > 1) e.preventDefault();
+    });
+  </script>
+</body>
+</html>

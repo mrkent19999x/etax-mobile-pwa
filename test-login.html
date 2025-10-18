@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Test Login</title>
+</head>
+
+<body>
+  <h1>Test Login Function</h1>
+  <input type="text" id="taxId" placeholder="MST" value="111111">
+  <input type="password" id="password" placeholder="Password" value="xxx">
+  <button onclick="testLogin()">Test Login</button>
+  <div id="result"></div>
+
+  <script src="src/admin-essential/mock-data-generator.js"></script>
+  <script>
+    function testLogin() {
+      const taxId = document.getElementById('taxId').value;
+      const password = document.getElementById('password').value;
+
+      console.log('Testing login with:', taxId, password);
+
+      try {
+        const user = validateUserCredentials(taxId, password);
+        console.log('User found:', user);
+
+        if (user) {
+          document.getElementById('result').innerHTML =
+            '<p style="color: green;">✅ Login SUCCESS!</p>' +
+            '<p>User: ' + user.fullName + '</p>' +
+            '<p>Type: ' + user.businessType + '</p>';
+        } else {
+          document.getElementById('result').innerHTML =
+            '<p style="color: red;">❌ Login FAILED!</p>';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('result').innerHTML =
+          '<p style="color: red;">❌ ERROR: ' + error.message + '</p>';
+      }
+    }
+
+    // Test on page load
+    window.onload = function () {
+      console.log('Page loaded, testing default users...');
+      const users = loadMockUsers();
+      console.log('Loaded users:', users);
+
+      if (Object.keys(users).length === 0) {
+        console.log('No users found, initializing defaults...');
+        initializeDefaultData();
+        const newUsers = loadMockUsers();
+        console.log('New users:', newUsers);
+      }
+    };
+  </script>
+</body>
+
+</html>

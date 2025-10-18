@@ -1,0 +1,83 @@
+{
+  "name": "eTax Mobile PWA",
+  "short_name": "eTax",
+  "description": "Ứng dụng thuế điện tử di động",
+  "start_url": "/login.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#b71c1c",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "vi",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": [
+    "finance",
+    "government",
+    "utilities"
+  ],
+  "screenshots": [
+    {
+      "src": "assets/index1.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Khai thuế",
+      "short_name": "Khai thuế",
+      "description": "Khai thuế trực tuyến",
+      "url": "/pages/khaithue.html",
+      "icons": [
+        {
+          "src": "assets/icon1.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Nộp thuế",
+      "short_name": "Nộp thuế",
+      "description": "Nộp thuế điện tử",
+      "url": "/pages/nopthue.html",
+      "icons": [
+        {
+          "src": "assets/icon2.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Tra cứu",
+      "short_name": "Tra cứu",
+      "description": "Tra cứu thông tin thuế",
+      "url": "/pages/tracuttnpt.html",
+      "icons": [
+        {
+          "src": "assets/icon3.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

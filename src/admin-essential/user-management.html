@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - eTax Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #b71c1c;
+            font-size: 1.8rem;
+        }
+
+        .back-btn {
+            background: #b71c1c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: #d32f2f;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-section h2 {
+            color: #b71c1c;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #b71c1c;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #b71c1c;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d32f2f;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .users-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .users-section h2 {
+            color: #b71c1c;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .users-table th,
+        .users-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .users-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .users-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.875rem;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-users"></i> User Management</h1>
+            <a href="../admin.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Admin
+            </a>
+        </div>
+
+        <div id="alertContainer"></div>
+
+        <div class="content">
+            <div class="form-section">
+                <h2>Add/Edit User</h2>
+                <form id="userForm">
+                    <div class="form-group">
+                        <label for="mst">Mã số thuế (MST)</label>
+                        <input type="text" id="mst" name="mst" required placeholder="Ví dụ: 8198700370">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" id="password" name="password" required placeholder="Mật khẩu đăng nhập">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fullName">Họ và tên</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Ví dụ: Trần Thành Phúc">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="businessType">Loại doanh nghiệp</label>
+                        <select id="businessType" name="businessType">
+                            <option value="individual">Cá nhân</option>
+                            <option value="company">Doanh nghiệp</option>
+                            <option value="household">Hộ kinh doanh</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" id="address" name="address" placeholder="Địa chỉ (tùy chọn)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Email (tùy chọn)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Số điện thoại (tùy chọn)">
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save User
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="users-section">
+                <h2>Mock Users List</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="loadDefaultUsers()">
+                        <i class="fas fa-download"></i> Load Default Users
+                    </button>
+                    <button class="btn btn-danger" onclick="clearAllUsers()">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                </div>
+                
+                <table class="users-table" id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>MST</th>
+                            <th>Họ tên</th>
+                            <th>Loại</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="mock-data-generator.js"></script>
+    <script>
+        let currentEditId = null;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUsers();
+            setupForm();
+        });
+
+        // Setup form event listeners
+        function setupForm() {
+            document.getElementById('userForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveUser();
+            });
+        }
+
+        // Save user function
+        function saveUser() {
+            const formData = new FormData(document.getElementById('userForm'));
+            const userData = {
+                mst: formData.get('mst'),
+                password: formData.get('password'),
+                fullName: formData.get('fullName'),
+                businessType: formData.get('businessType'),
+                address: formData.get('address') || '',
+                email: formData.get('email') || '',
+                phone: formData.get('phone') || ''
+            };
+
+            // Validate MST format (basic validation)
+            if (!/^\d{10,13}$/.test(userData.mst)) {
+                showAlert('Mã số thuế phải có từ 10-13 chữ số!', 'danger');
+                return;
+            }
+
+            const users = loadMockUsers();
+            
+            if (currentEditId && currentEditId !== userData.mst) {
+                // Editing different user - remove old one
+                delete users[currentEditId];
+            }
+            
+            users[userData.mst] = userData;
+            saveMockUsers(users);
+            
+            showAlert(`User ${currentEditId ? 'updated' : 'created'} successfully!`, 'success');
+            loadUsers();
+            clearForm();
+        }
+
+        // Load users and display in table
+        function loadUsers() {
+            const users = loadMockUsers();
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+
+            Object.keys(users).forEach(mst => {
+                const user = users[mst];
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${mst}</td>
+                    <td>${user.fullName}</td>
+                    <td>${getBusinessTypeLabel(user.businessType)}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary btn-sm" onclick="editUser('${mst}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteUser('${mst}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Edit user function
+        function editUser(mst) {
+            const users = loadMockUsers();
+            const user = users[mst];
+            
+            if (user) {
+                document.getElementById('mst').value = user.mst;
+                document.getElementById('password').value = user.password;
+                document.getElementById('fullName').value = user.fullName;
+                document.getElementById('businessType').value = user.businessType;
+                document.getElementById('address').value = user.address || '';
+                document.getElementById('email').value = user.email || '';
+                document.getElementById('phone').value = user.phone || '';
+                
+                currentEditId = mst;
+                document.getElementById('mst').readOnly = true;
+                
+                showAlert('User loaded for editing', 'success');
+            }
+        }
+
+        // Delete user function
+        function deleteUser(mst) {
+            if (confirm(`Bạn có chắc muốn xóa user ${mst}?`)) {
+                const users = loadMockUsers();
+                delete users[mst];
+                saveMockUsers(users);
+                loadUsers();
+                showAlert('User deleted successfully!', 'success');
+            }
+        }
+
+        // Clear form function
+        function clearForm() {
+            document.getElementById('userForm').reset();
+            currentEditId = null;
+            document.getElementById('mst').readOnly = false;
+        }
+
+        // Load default users
+        function loadDefaultUsers() {
+            const defaultUsers = getDefaultMockUsers();
+            saveMockUsers(defaultUsers);
+            loadUsers();
+            showAlert('Default users loaded successfully!', 'success');
+        }
+
+        // Clear all users
+        function clearAllUsers() {
+            if (confirm('Bạn có chắc muốn xóa tất cả users? Hành động này không thể hoàn tác!')) {
+                saveMockUsers({});
+                loadUsers();
+                showAlert('All users cleared!', 'success');
+            }
+        }
+
+        // Get business type label
+        function getBusinessTypeLabel(type) {
+            const labels = {
+                'individual': 'Cá nhân',
+                'company': 'Doanh nghiệp',
+                'household': 'Hộ kinh doanh'
+            };
+            return labels[type] || type;
+        }
+
+        // Show alert function
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

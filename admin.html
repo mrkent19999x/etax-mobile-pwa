@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🏗️ Admin Quản lý MST - eTax Mobile</title>
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #b71c1c, #d32f2f);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .admin-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .admin-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .admin-content {
+            padding: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .form-section h2 {
+            color: #b71c1c;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-row label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-row input, .form-row textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-row input:focus, .form-row textarea:focus {
+            outline: none;
+            border-color: #b71c1c;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: #b71c1c;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+
+        .btn:hover {
+            background: #a00;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .user-list {
+            margin-top: 30px;
+        }
+
+        .user-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: box-shadow 0.3s;
+        }
+
+        .user-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .user-header {
+            font-weight: bold;
+            color: #b71c1c;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .user-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            color: #333;
+            margin-top: 2px;
+        }
+
+        .tax-summary {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #b71c1c, #d32f2f);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .action-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .action-card i {
+            font-size: 2rem;
+            color: #b71c1c;
+            margin-bottom: 10px;
+        }
+
+        .action-card h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .action-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .admin-header h1 {
+                font-size: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-info {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-user-cog"></i> Admin Quản lý MST</h1>
+            <p>Hệ thống quản lý mã số thuế và đồng bộ dữ liệu eTax Mobile</p>
+        </div>
+
+        <div class="admin-content">
+            <!-- Thống kê tổng quan -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalUsers">0</div>
+                    <div class="stat-label">Tổng số MST</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTaxAmount">0 VND</div>
+                    <div class="stat-label">Tổng tiền thuế</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingAmount">0 VND</div>
+                    <div class="stat-label">Còn phải nộp</div>
+                </div>
+            </div>
+
+            <!-- Hành động nhanh -->
+            <div class="quick-actions">
+                <div class="action-card" onclick="scrollToAddForm()">
+                    <i class="fas fa-user-plus"></i>
+                    <h4>Thêm MST mới</h4>
+                    <p>Tạo mã số thuế và thông tin người dùng</p>
+                </div>
+                <div class="action-card" onclick="refreshStats()">
+                    <i class="fas fa-sync-alt"></i>
+                    <h4>Làm mới dữ liệu</h4>
+                    <p>Cập nhật thống kê và danh sách</p>
+                </div>
+                <div class="action-card" onclick="exportData()">
+                    <i class="fas fa-download"></i>
+                    <h4>Xuất dữ liệu</h4>
+                    <p>Tải xuống file dữ liệu MST</p>
+                </div>
+                <div class="action-card" onclick="clearAllData()">
+                    <i class="fas fa-trash-alt"></i>
+                    <h4>Xóa tất cả</h4>
+                    <p>Reset toàn bộ dữ liệu hệ thống</p>
+                </div>
+            </div>
+
+            <!-- Form thêm người dùng -->
+            <div class="form-section" id="addUserSection">
+                <h2><i class="fas fa-plus-circle"></i> ➕ Thêm người dùng MST mới</h2>
+                <form id="addUserForm">
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <label for="mst"><i class="fas fa-id-card"></i> Mã số thuế <span style="color: red;">*</span></label>
+                            <input type="text" id="mst" placeholder="Nhập mã số thuế (10-13 số)" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="fullName"><i class="fas fa-user"></i> Tên đầy đủ <span style="color: red;">*</span></label>
+                            <input type="text" id="fullName" placeholder="Nhập tên đầy đủ" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="address"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
+                            <input type="text" id="address" placeholder="Nhập địa chỉ">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="taxOffice"><i class="fas fa-building"></i> Cơ quan thuế</label>
+                            <input type="text" id="taxOffice" placeholder="Nhập cơ quan thuế quản lý">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="phone"><i class="fas fa-phone"></i> Số điện thoại</label>
+                            <input type="text" id="phone" placeholder="Nhập số điện thoại">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="email" placeholder="Nhập email">
+                        </div>
+                    </div>
+
+                    <!-- Thông tin thuế -->
+                    <h3 style="margin: 20px 0 15px 0; color: #b71c1c;"><i class="fas fa-coins"></i> Thông tin thuế</h3>
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <label for="totalAmount">Tổng tiền thuế</label>
+                            <input type="text" id="totalAmount" placeholder="Ví dụ: 3750000" value="3750000">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="paidAmount">Đã nộp</label>
+                            <input type="text" id="paidAmount" placeholder="Ví dụ: 0" value="0">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="pendingAmount">Còn phải nộp</label>
+                            <input type="text" id="pendingAmount" placeholder="Ví dụ: 3750000" value="3750000">
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn">
+                            <i class="fas fa-save"></i> ➕ Thêm người dùng
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-undo"></i> 🔄 Làm mới
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Danh sách người dùng -->
+            <div class="form-section">
+                <h2><i class="fas fa-list"></i> 📋 Danh sách người dùng MST</h2>
+                <div id="userList">
+                    <!-- Danh sách sẽ được load ở đây -->
+                </div>
+            </div>
+
+            <!-- Thông báo trạng thái -->
+            <div id="statusMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        // Khởi tạo khi trang load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserList();
+            refreshStats();
+        });
+
+        // Thêm người dùng mới
+        document.getElementById('addUserForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const mst = document.getElementById('mst').value.trim();
+            const fullName = document.getElementById('fullName').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const taxOffice = document.getElementById('taxOffice').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const totalAmount = document.getElementById('totalAmount').value.trim() || "0";
+            const paidAmount = document.getElementById('paidAmount').value.trim() || "0";
+            const pendingAmount = document.getElementById('pendingAmount').value.trim() || "0";
+
+            if (!mst || !fullName) {
+                showStatus('Vui lòng nhập đầy đủ thông tin bắt buộc (MST và Tên)!', 'error');
+                return;
+            }
+
+            // Tạo dữ liệu người dùng mới
+            const newUserData = {
+                mst: mst,
+                fullName: fullName.toUpperCase(),
+                address: address,
+                taxOffice: taxOffice,
+                phone: phone,
+                email: email,
+                taxInfo: {
+                    totalAmount: formatCurrency(totalAmount),
+                    paidAmount: formatCurrency(paidAmount),
+                    pendingAmount: formatCurrency(pendingAmount),
+                    items: []
+                }
+            };
+
+            // Lưu vào localStorage
+            localStorage.setItem(`etax_user_data_${mst}`, JSON.stringify(newUserData));
+
+            showStatus(`✅ Đã thêm người dùng ${fullName} với MST ${mst}`, 'success');
+
+            // Làm mới form và tải lại danh sách
+            document.getElementById('addUserForm').reset();
+            loadUserList();
+            refreshStats();
+        });
+
+        // Tải danh sách người dùng
+        function loadUserList() {
+            const userList = document.getElementById('userList');
+            userList.innerHTML = '';
+
+            // Duyệt qua localStorage để tìm dữ liệu người dùng
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('etax_user_data_')) {
+                    const mst = key.replace('etax_user_data_', '');
+                    const userData = JSON.parse(localStorage.getItem(key));
+
+                    const userCard = document.createElement('div');
+                    userCard.className = 'user-card';
+                    userCard.innerHTML = `
+                        <div class="user-header">
+                            <i class="fas fa-user"></i> ${userData.fullName} (MST: ${userData.mst})
+                        </div>
+
+                        <div class="user-info">
+                            <div class="info-item">
+                                <div class="info-label">Địa chỉ</div>
+                                <div class="info-value">${userData.address || 'Chưa cập nhật'}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Cơ quan thuế</div>
+                                <div class="info-value">${userData.taxOffice || 'Chưa cập nhật'}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Điện thoại</div>
+                                <div class="info-value">${userData.phone || 'Chưa cập nhật'}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Email</div>
+                                <div class="info-value">${userData.email || 'Chưa cập nhật'}</div>
+                            </div>
+                        </div>
+
+                        <div class="tax-summary">
+                            <strong>💰 Thông tin thuế:</strong><br>
+                            Tổng: ${userData.taxInfo?.totalAmount || '0 VND'} |
+                            Đã nộp: ${userData.taxInfo?.paidAmount || '0 VND'} |
+                            Còn phải nộp: ${userData.taxInfo?.pendingAmount || '0 VND'}
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn" onclick="editUser('${mst}')">
+                                <i class="fas fa-edit"></i> ✏️ Sửa
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteUser('${mst}')">
+                                <i class="fas fa-trash"></i> 🗑️ Xóa
+                            </button>
+                            <button class="btn btn-success" onclick="testLogin('${mst}')">
+                                <i class="fas fa-sign-in-alt"></i> 🔑 Test Đăng nhập
+                            </button>
+                        </div>
+                    `;
+
+                    userList.appendChild(userCard);
+                }
+            }
+
+            if (userList.children.length === 0) {
+                userList.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Chưa có người dùng nào. Hãy thêm người dùng MST mới!</p>';
+            }
+        }
+
+        // Sửa thông tin người dùng
+        function editUser(mst) {
+            const userData = JSON.parse(localStorage.getItem(`etax_user_data_${mst}`));
+
+            document.getElementById('mst').value = userData.mst;
+            document.getElementById('fullName').value = userData.fullName;
+            document.getElementById('address').value = userData.address || '';
+            document.getElementById('taxOffice').value = userData.taxOffice || '';
+            document.getElementById('phone').value = userData.phone || '';
+            document.getElementById('email').value = userData.email || '';
+
+            // Parse số tiền từ format VND
+            const totalAmount = parseCurrency(userData.taxInfo?.totalAmount || '0 VND');
+            const paidAmount = parseCurrency(userData.taxInfo?.paidAmount || '0 VND');
+            const pendingAmount = parseCurrency(userData.taxInfo?.pendingAmount || '0 VND');
+
+            document.getElementById('totalAmount').value = totalAmount;
+            document.getElementById('paidAmount').value = paidAmount;
+            document.getElementById('pendingAmount').value = pendingAmount;
+
+            // Scroll to form
+            document.getElementById('addUserSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Xóa người dùng
+        function deleteUser(mst) {
+            if (confirm(`⚠️ Bạn có chắc chắn muốn xóa người dùng với MST: ${mst}?\n\nHành động này sẽ xóa tất cả dữ liệu liên quan!`)) {
+                localStorage.removeItem(`etax_user_data_${mst}`);
+                showStatus(`🗑️ Đã xóa người dùng với MST: ${mst}`, 'success');
+                loadUserList();
+                refreshStats();
+            }
+        }
+
+        // Test đăng nhập với MST
+        function testLogin(mst) {
+            // Lưu MST vào session để test
+            localStorage.setItem('etax_logged_in_user', mst);
+            showStatus(`🔑 Đã đăng nhập với MST: ${mst}. Mở trang chủ để kiểm tra đồng bộ dữ liệu!`, 'success');
+
+            // Mở trang chủ trong tab mới
+            window.open('src/pages/index.html', '_blank');
+        }
+
+        // Làm mới thống kê
+        function refreshStats() {
+            let totalUsers = 0;
+            let totalTaxAmount = 0;
+            let totalPendingAmount = 0;
+
+            // Duyệt qua localStorage để tính thống kê
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('etax_user_data_')) {
+                    totalUsers++;
+                    const userData = JSON.parse(localStorage.getItem(key));
+                    if (userData.taxInfo) {
+                        totalTaxAmount += parseCurrency(userData.taxInfo.totalAmount || '0 VND');
+                        totalPendingAmount += parseCurrency(userData.taxInfo.pendingAmount || '0 VND');
+                    }
+                }
+            }
+
+            // Cập nhật hiển thị
+            document.getElementById('totalUsers').textContent = totalUsers;
+            document.getElementById('totalTaxAmount').textContent = formatCurrency(totalTaxAmount);
+            document.getElementById('pendingAmount').textContent = formatCurrency(totalPendingAmount);
+
+            showStatus(`📊 Đã cập nhật thống kê: ${totalUsers} MST, Tổng thuế: ${formatCurrency(totalTaxAmount)}`, 'info');
+        }
+
+        // Xuất dữ liệu
+        function exportData() {
+            const data = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('etax_user_data_')) {
+                    data[key] = JSON.parse(localStorage.getItem(key));
+                }
+            }
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'etax-mst-data-' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showStatus('📥 Đã xuất dữ liệu MST thành công!', 'success');
+        }
+
+        // Xóa tất cả dữ liệu
+        function clearAllData() {
+            if (confirm('⚠️ CẢNH BÁO: Bạn có chắc muốn xóa TẤT CẢ dữ liệu MST?\n\nHành động này KHÔNG THỂ hoàn tác!')) {
+                const keysToDelete = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith('etax_user_data_')) {
+                        keysToDelete.push(key);
+                    }
+                }
+
+                keysToDelete.forEach(key => localStorage.removeItem(key));
+
+                showStatus(`🗑️ Đã xóa ${keysToDelete.length} bản ghi MST`, 'success');
+                loadUserList();
+                refreshStats();
+            }
+        }
+
+        // Scroll to add form
+        function scrollToAddForm() {
+            document.getElementById('addUserSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Utility functions
+        function formatCurrency(amount) {
+            return parseInt(amount).toLocaleString('vi-VN') + ' VND';
+        }
+
+        function parseCurrency(amountStr) {
+            return parseInt(amountStr.replace(/[^\d]/g, '')) || 0;
+        }
+
+        // Hiển thị thông báo trạng thái
+        function showStatus(message, type) {
+            const statusElement = document.getElementById('statusMessage');
+            statusElement.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            statusElement.className = `status ${type}`;
+
+            // Tự động ẩn sau 5 giây
+            setTimeout(() => {
+                statusElement.innerHTML = '';
+                statusElement.className = 'status';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

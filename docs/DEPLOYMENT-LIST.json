@@ -1,0 +1,235 @@
+{
+  "html": [
+    {
+      "file": "login.html",
+      "size": "20KB"
+    },
+    {
+      "file": "src/pages/index.html",
+      "size": "51KB"
+    },
+    {
+      "file": "src/pages/khaithue.html",
+      "size": "15KB"
+    },
+    {
+      "file": "src/pages/nopthue.html",
+      "size": "16KB"
+    },
+    {
+      "file": "src/pages/tracuttnpt.html",
+      "size": "10KB"
+    },
+    {
+      "file": "src/pages/thongtin.html",
+      "size": "13KB"
+    },
+    {
+      "file": "src/pages/hotro.html",
+      "size": "10KB"
+    },
+    {
+      "file": "src/pages/thietlap.html",
+      "size": "10KB"
+    },
+    {
+      "file": "src/pages/hoso.html",
+      "size": "7KB"
+    },
+    {
+      "file": "src/pages/nghiavu.html",
+      "size": "10KB"
+    },
+    {
+      "file": "src/pages/tienich.html",
+      "size": "12KB"
+    },
+    {
+      "file": "src/pages/thongbao.html",
+      "size": "7KB"
+    },
+    {
+      "file": "src/pages/dangky.html",
+      "size": "9KB"
+    },
+    {
+      "file": "src/pages/doimatkhau.html",
+      "size": "5KB"
+    },
+    {
+      "file": "src/pages/hoadondt.html",
+      "size": "12KB"
+    },
+    {
+      "file": "src/pages/hsdkythue.html",
+      "size": "11KB"
+    },
+    {
+      "file": "src/pages/ho-tro-qtt.html",
+      "size": "10KB"
+    },
+    {
+      "file": "src/pages/ho-tro-qtthue.html",
+      "size": "7KB"
+    },
+    {
+      "file": "src/pages/thongtin-chitiet.html",
+      "size": "6KB"
+    },
+    {
+      "file": "src/pages/thongtinnvt.html",
+      "size": "19KB"
+    },
+    {
+      "file": "src/pages/page-thongbao.html",
+      "size": "4KB"
+    },
+    {
+      "file": "src/pages/chi-tiet-thong-bao.html",
+      "size": "4KB"
+    },
+    {
+      "file": "src/pages/thaydoittdkthue.html",
+      "size": "10KB"
+    },
+    {
+      "file": "src/pages/tra-cuu-chung-tu.html",
+      "size": "14KB"
+    },
+    {
+      "file": "src/pages/van-tay.html",
+      "size": "4KB"
+    },
+    {
+      "file": "src/admin-essential/admin-editor.html",
+      "size": "9KB"
+    },
+    {
+      "file": "src/admin-essential/admin-template.html",
+      "size": "34KB"
+    },
+    {
+      "file": "src/admin-essential/admin-placeholder.html",
+      "size": "61KB"
+    }
+  ],
+  "css": [
+    {
+      "file": "css/login-original.css",
+      "size": "5KB"
+    },
+    {
+      "file": "css/user-interface-manager.css",
+      "size": "6KB"
+    },
+    {
+      "file": "css/pwa-optimizations.css",
+      "size": "1KB"
+    },
+    {
+      "file": "css/smooth-animations.css",
+      "size": "4KB"
+    },
+    {
+      "file": "css/auto-measurements.css",
+      "size": "1KB"
+    },
+    {
+      "file": "css/etax-common.css",
+      "size": "3KB"
+    },
+    {
+      "file": "css/etax-template.css",
+      "size": "7KB"
+    },
+    {
+      "file": "css/styles.css",
+      "size": "7KB"
+    },
+    {
+      "file": "css/home.css",
+      "size": "2KB"
+    },
+    {
+      "file": "css/index.css",
+      "size": "2KB"
+    },
+    {
+      "file": "css/custom-settings.css",
+      "size": "6KB"
+    },
+    {
+      "file": "css/pwa-statusbar-fix.css",
+      "size": "0KB"
+    },
+    {
+      "file": "css/themes/corporate.css",
+      "size": "7KB"
+    },
+    {
+      "file": "css/themes/government.css",
+      "size": "11KB"
+    },
+    {
+      "file": "css/themes/individual.css",
+      "size": "9KB"
+    }
+  ],
+  "js": [
+    {
+      "file": "src/services/auth-simple.js",
+      "size": "2KB"
+    },
+    {
+      "file": "src/services/theme-manager.js",
+      "size": "14KB"
+    },
+    {
+      "file": "src/services/user-interface-manager.js",
+      "size": "28KB"
+    },
+    {
+      "file": "src/services/mobile-gestures.js",
+      "size": "10KB"
+    },
+    {
+      "file": "src/services/haptic-feedback.js",
+      "size": "8KB"
+    },
+    {
+      "file": "src/services/auto-measurements.js",
+      "size": "4KB"
+    },
+    {
+      "file": "src/services/placeholder-system.js",
+      "size": "19KB"
+    },
+    {
+      "file": "src/services/system-notifications.js",
+      "size": "11KB"
+    },
+    {
+      "file": "src/services/app.js",
+      "size": "12KB"
+    },
+    {
+      "file": "src/services/main.js",
+      "size": "0KB"
+    }
+  ],
+  "assets": [],
+  "pwa": [
+    {
+      "file": "manifest.json",
+      "size": "2KB"
+    },
+    {
+      "file": "service-worker.js",
+      "size": "13KB"
+    },
+    {
+      "file": "favicon.ico",
+      "size": "302KB"
+    }
+  ]
+}
