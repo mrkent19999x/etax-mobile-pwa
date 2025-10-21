@@ -1,0 +1,282 @@
+/* 🎨 Pixel Perfect CSS - Generated from screenshot analysis */
+/* Generated: 01:09:59 20/10/2025 */
+/* Target: iPhone 13 Pro Max (428x926px) */
+
+:root {
+  /* Device Specific Variables */
+  --iphone-width: 428px;
+  --iphone-height: 926px;
+
+  /* Element Sizes */
+  --logo-size: 120px;
+  --logo-top: 80px;
+  --title-font-size: 24px;
+  --title-top: 220px;
+  --button-width: 320px;
+  --button-height: 50px;
+  --button-top: 450px;
+  --input-width: 320px;
+  --input-height: 45px;
+  --input-top: 300px;
+
+  /* Colors */
+  --primary-color: #DC143C;
+  --primary-hover: #B71C1C;
+  --text-color: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.85);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --bg-color: #000000;
+  --input-border: rgba(255, 255, 255, 0.5);
+  --link-color: #FFD700;
+
+  /* Spacing */
+  --spacing-logo-title: 20px;
+  --spacing-title-input: 60px;
+  --spacing-input-input: 20px;
+  --spacing-input-button: 40px;
+  --spacing-button-vneid: 20px;
+  --spacing-vneid-register: 25px;
+
+  /* Typography */
+  --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-title: 24px;
+  --font-size-input: 16px;
+  --font-size-button: 16px;
+  --font-size-body: 14px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+}
+
+/* iPhone 13 Pro Max - Pixel Perfect Styles */
+@media screen and (device-width: 428px) and (device-height: 926px) {
+
+  /* Logo Section - Pixel Perfect */
+  .logo {
+    width: var(--logo-size) !important;
+    height: var(--logo-size) !important;
+    margin: 0 auto var(--spacing-logo-title) !important;
+    position: relative !important;
+    top: calc(var(--logo-top) - 44px) !important; /* Adjust for status bar */
+  }
+
+  .logo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  /* App Title - Pixel Perfect */
+  .app-title {
+    font-size: var(--font-size-title) !important;
+    font-weight: var(--font-weight-semibold) !important;
+    color: var(--text-color) !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.7) !important;
+    margin: var(--spacing-logo-title) auto var(--spacing-title-input) !important;
+    text-align: center !important;
+    font-family: var(--font-primary) !important;
+    position: relative !important;
+    top: calc(var(--title-top) - 44px - var(--logo-size) - var(--spacing-logo-title)) !important;
+  }
+
+  /* Login Form Container - Pixel Perfect */
+  .login-form-container {
+    padding: 0 25px !important;
+    margin-top: var(--spacing-title-input) !important;
+    position: relative !important;
+    top: calc(var(--input-top) - 44px - var(--logo-size) - var(--spacing-logo-title) - var(--font-size-title) - var(--spacing-title-input)) !important;
+  }
+
+  /* Input Fields - Pixel Perfect */
+  .input-wrapper {
+    width: var(--input-width) !important;
+    height: var(--input-height) !important;
+    margin-bottom: var(--spacing-input-input) !important;
+    background: transparent !important;
+    border-bottom: 1px solid var(--input-border) !important;
+    position: relative !important;
+  }
+
+  .form-input {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-color) !important;
+    font-size: var(--font-size-input) !important;
+    font-family: var(--font-primary) !important;
+    width: 100% !important;
+    height: 100% !important;
+    outline: none !important;
+  }
+
+  .form-input::placeholder {
+    color: var(--text-muted) !important;
+  }
+
+  /* Login Button - Pixel Perfect */
+  .login-button {
+    width: var(--button-width) !important;
+    height: var(--button-height) !important;
+    background: var(--primary-color) !important;
+    color: var(--text-color) !important;
+    border: none !important;
+    border-radius: 25px !important;
+    font-size: var(--font-size-button) !important;
+    font-weight: var(--font-weight-semibold) !important;
+    font-family: var(--font-primary) !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4) !important;
+    margin-top: var(--spacing-input-button) !important;
+    position: relative !important;
+  }
+
+  .login-button:hover {
+    background: var(--primary-hover) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(220, 20, 60, 0.5) !important;
+  }
+
+  /* FaceID Icon - Pixel Perfect */
+  .faceid-icon {
+    width: 54px !important;
+    height: 54px !important;
+    cursor: pointer !important;
+    opacity: 1 !important;
+    filter: drop-shadow(0 0 6px rgba(255,0,0,0.5)) !important;
+    position: absolute !important;
+    top: calc(var(--button-top) + 44px + 15px) !important; /* Adjust for status bar + button padding */
+    right: 54px !important;
+  }
+
+  /* VNeID Button - Pixel Perfect */
+  .vneid-container {
+    margin-top: var(--spacing-button-vneid) !important;
+    padding: 0 25px !important;
+  }
+
+  .vneid-button {
+    width: 320px !important;
+    height: 55px !important;
+    background: #FFFFFF !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 18px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .vneid-button:hover {
+    background: #f5f5f5 !important;
+    transform: translateY(-2px) !important;
+  }
+
+  /* Register Section - Pixel Perfect */
+  .register-section {
+    padding: 0 25px !important;
+    margin-top: var(--spacing-vneid-register) !important;
+    margin-bottom: 150px !important;
+    text-align: left !important;
+  }
+
+  .register-text {
+    color: var(--text-secondary) !important;
+    font-size: var(--font-size-body) !important;
+    line-height: 1.4 !important;
+    font-family: var(--font-primary) !important;
+  }
+
+  .register-link {
+    color: var(--link-color) !important;
+    text-decoration: none !important;
+    font-weight: var(--font-weight-semibold) !important;
+  }
+
+  .register-link:hover {
+    text-decoration: underline !important;
+  }
+
+  /* Bottom Navigation - Pixel Perfect */
+  .bottom-nav {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 0 !important;
+    right: 0 !important;
+    display: flex !important;
+    justify-content: space-around !important;
+    padding: 0 40px !important;
+  }
+
+  .nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.3s !important;
+  }
+
+  .nav-icon {
+    width: 28px !important;
+    height: 28px !important;
+    margin-bottom: 4px !important;
+    filter: brightness(0) invert(1) !important;
+  }
+
+  .nav-text {
+    font-size: 10px !important;
+    color: var(--text-color) !important;
+    text-align: center !important;
+  }
+}
+
+/* iOS Safari Optimizations */
+@supports (-webkit-touch-callout: none) {
+  .form-input {
+    -webkit-appearance: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .login-button,
+  .vneid-button {
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation !important;
+  }
+
+  .form-input[type="text"],
+  .form-input[type="password"] {
+    font-size: var(--font-size-input) !important;
+    transform: translateZ(0) !important;
+  }
+}
+
+/* Additional responsive fixes */
+@media (max-width: 480px) {
+  .login-form-container,
+  .vneid-container,
+  .register-section {
+    padding: 0 20px !important;
+  }
+
+  .app-title {
+    font-size: 22px !important;
+  }
+}
+
+/* Landscape orientation for iPhone 13 Pro Max */
+@media screen and (device-width: 428px) and (device-height: 926px) and (orientation: landscape) {
+  .logo-section {
+    margin-top: 20px !important;
+  }
+
+  .login-form-container {
+    margin-top: 20px !important;
+  }
+
+  .register-section {
+    margin-bottom: 60px !important;
+  }
+}

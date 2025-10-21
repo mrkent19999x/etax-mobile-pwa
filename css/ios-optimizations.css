@@ -1,0 +1,480 @@
+/* iOS Optimizations for eTax Mobile PWA */
+/* Universal responsive CSS cho tất cả thiết bị iOS và Android */
+
+/* PWA Standalone Mode Optimizations */
+@media all and (display-mode: standalone) {
+  html, body {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  body {
+    padding-top: env(safe-area-inset-top) !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    padding-left: env(safe-area-inset-left) !important;
+    padding-right: env(safe-area-inset-right) !important;
+  }
+  
+  .screen {
+    height: 100vh !important;
+    padding-top: calc(50px + env(safe-area-inset-top)) !important;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
+    box-sizing: border-box !important;
+  }
+  
+  .nav-bar {
+    bottom: env(safe-area-inset-bottom) !important;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+  }
+  
+  .background {
+    height: 100vh !important;
+    width: 100vw !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+  }
+}
+
+/* Universal safe area support - DISABLED for iPhone XS Max */
+@supports (padding: max(0px)) {
+  body:not(.iphone-xsmax) {
+    padding-top: max(44px, env(safe-area-inset-top)) !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    padding-left: env(safe-area-inset-left) !important;
+    padding-right: env(safe-area-inset-right) !important;
+  }
+}
+
+/* Prevent zoom on input focus for all devices */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"] {
+  font-size: 16px !important;
+  -webkit-text-size-adjust: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+/* Touch optimizations for all mobile devices */
+.btn-primary,
+.vneid-button,
+.nav-item,
+.toggle {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Smooth scrolling for all devices */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* iPhone 13 Pro Max - 428x926px - Dựa trên screenshot thực tế */
+@media screen and (device-width: 428px) and (device-height: 926px) {
+  /* Safe area adjustments */
+  body {
+    padding-top: calc(44px + env(safe-area-inset-top)) !important;
+    padding-bottom: calc(34px + env(safe-area-inset-bottom)) !important;
+    padding-left: env(safe-area-inset-left) !important;
+    padding-right: env(safe-area-inset-right) !important;
+  }
+
+  /* Logo section - dựa trên screenshot thực tế */
+  .logo-section {
+    margin-top: 50px !important;
+    margin-bottom: 60px !important;
+  }
+
+  .logo {
+    width: 120px !important;
+    height: 120px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .app-title {
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    margin-top: 25px !important;
+    margin-bottom: 60px !important;
+  }
+
+  /* Form elements - width hẹp hơn dựa trên screenshot */
+  .login-form-container {
+    padding: 0 54px !important;
+    margin-top: 60px !important;
+    margin-bottom: 40px !important;
+  }
+
+  .input-wrapper {
+    height: 45px !important;
+    padding: 12px 0 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .form-input {
+    font-size: 15px !important;
+    height: 45px !important;
+    line-height: 45px !important;
+  }
+
+  .login-button {
+    height: 50px !important;
+    border-radius: 25px !important;
+    font-size: 16px !important;
+    margin-top: 40px !important;
+    padding: 12px 24px !important;
+  }
+
+  .faceid-icon {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  /* VNeID button */
+  .vneid-container {
+    padding: 0 54px !important;
+    margin-top: 20px !important;
+    margin-bottom: 30px !important;
+  }
+
+  .vneid-button {
+    height: 55px !important;
+    border-radius: 12px !important;
+    padding: 15px 20px !important;
+  }
+
+  /* Register section - font nhỏ hơn */
+  .register-section {
+    padding: 0 54px !important;
+    margin-bottom: 100px !important;
+  }
+
+  .register-text {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  .foreigner-text {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Bottom navigation - nhỏ hơn và tối ưu */
+  .bottom-nav .nav-icon {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .bottom-nav .nav-text {
+    font-size: 9px !important;
+  }
+
+  .nav-item {
+    transition: opacity 0.3s ease !important;
+  }
+
+  .nav-item:hover {
+    opacity: 1 !important;
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: calc(44px + env(safe-area-inset-top)) !important;
+    padding-top: env(safe-area-inset-top) !important;
+  }
+}
+
+/* iPhone 14 Pro Max - 430x932px */
+@media screen and (device-width: 430px) and (device-height: 932px) {
+  body {
+    padding-top: calc(44px + env(safe-area-inset-top)) !important;
+    padding-bottom: calc(34px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .logo {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .app-title {
+    font-size: 28px !important;
+  }
+}
+
+/* iPhone 12 Pro Max - 428x926px (giống iPhone 13 Pro Max) */
+@media screen and (device-width: 428px) and (device-height: 926px) {
+  /* Sử dụng cùng styles với iPhone 13 Pro Max */
+}
+
+/* iPhone XS Max PWA Standalone Mode */
+@media screen and (device-width: 414px) and (device-height: 896px) and (display-mode: standalone) {
+  html, body {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .screen {
+    padding-top: 44px !important; /* Status bar */
+    padding-bottom: 94px !important; /* Nav + home indicator */
+    height: 100vh !important;
+    box-sizing: border-box !important;
+  }
+
+  .nav-bar {
+    bottom: 34px !important; /* Home indicator space */
+    height: 60px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .background {
+    height: 100vh !important;
+    width: 100vw !important;
+  }
+}
+
+/* iPhone XS Max Browser Mode - ZERO WHITE SPACE */
+@media screen and (device-width: 414px) and (device-height: 896px) and (display-mode: browser) {
+  html, body {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body {
+    padding-top: 0 !important; /* Loại bỏ safe area padding */
+    padding-bottom: 0 !important; /* Loại bỏ safe area padding */
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  .screen {
+    padding: 40px 20px 60px !important; /* Giảm padding bottom */
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .nav-bar {
+    bottom: 0px !important; /* Stick sát bottom, không dùng safe area */
+    padding: 8px 20px 8px !important; /* Giảm padding */
+    margin: 0 !important;
+    height: 60px !important;
+    box-sizing: border-box !important;
+  }
+
+  .background {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    width: 100vw !important;
+    z-index: -2 !important;
+  }
+
+  .background img {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    width: 100vw !important;
+    object-fit: cover !important;
+  }
+
+  .logo {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .app-title {
+    font-size: 26px !important;
+  }
+
+  .login-form-container,
+  .vneid-container,
+  .register-section {
+    padding: 0 20px !important;
+  }
+}
+
+/* iOS Safari specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* Remove iOS tap highlight */
+  .login-button,
+  .vneid-button,
+  .register-link,
+  .forgot-link {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Prevent zoom on input focus */
+  .form-input[type="text"],
+  .form-input[type="password"] {
+    font-size: 16px !important;
+    transform: translateZ(0);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Remove iOS input styling */
+  .form-input {
+    -webkit-appearance: none;
+  appearance: none;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+  }
+
+  /* Smooth scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Better touch targets */
+  .login-button,
+  .vneid-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Landscape orientation cho các iPhone Pro Max */
+@media screen and (device-width: 428px) and (device-height: 926px) and (orientation: landscape) {
+  .logo-section {
+    margin-top: 20px !important;
+  }
+
+  .login-form-container {
+    margin-top: 20px !important;
+  }
+
+  .register-section {
+    margin-bottom: 60px !important;
+  }
+}
+
+@media screen and (device-width: 430px) and (device-height: 932px) and (orientation: landscape) {
+  .logo-section {
+    margin-top: 20px !important;
+  }
+
+  .login-form-container {
+    margin-top: 20px !important;
+  }
+
+  .register-section {
+    margin-bottom: 60px !important;
+  }
+}
+
+/* Universal small screen optimizations */
+@media screen and (max-width: 375px) {
+  .screen {
+    padding: 35px 15px 85px !important;
+  }
+  
+  .brand .logo-circle {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .brand h1 {
+    font-size: 20px !important;
+  }
+
+  .login-form {
+    max-width: 280px !important;
+  }
+  
+  .btn-primary {
+    height: 48px !important;
+    font-size: 15px !important;
+  }
+  
+  .nav-bar {
+    padding: 0 15px !important;
+    bottom: 15px !important;
+  }
+}
+
+/* Universal medium screen optimizations */
+@media screen and (min-width: 376px) and (max-width: 414px) {
+  .screen {
+    padding: 45px 20px 95px !important;
+  }
+  
+  .brand .logo-circle {
+    width: 115px !important;
+    height: 115px !important;
+  }
+
+  .brand h1 {
+    font-size: 24px !important;
+  }
+
+  .login-form {
+    max-width: 340px !important;
+  }
+  
+  .nav-bar {
+    padding: 0 25px !important;
+    bottom: 18px !important;
+  }
+}
+
+/* Universal large screen optimizations */
+@media screen and (min-width: 415px) {
+  .screen {
+    padding: 50px 25px 100px !important;
+  }
+  
+  .brand .logo-circle {
+    width: 130px !important;
+    height: 130px !important;
+  }
+
+  .brand h1 {
+    font-size: 26px !important;
+  }
+
+  .login-form {
+    max-width: 360px !important;
+  }
+  
+  .nav-bar {
+    padding: 0 30px !important;
+    bottom: 20px !important;
+  }
+}
+
+/* Dark mode support cho iOS */
+@media (prefers-color-scheme: dark) {
+  /* Các styles tối ưu cho dark mode nếu cần */
+}
+
+/* Reduced motion cho accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
