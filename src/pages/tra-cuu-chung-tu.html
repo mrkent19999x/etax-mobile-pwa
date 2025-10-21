@@ -56,6 +56,7 @@
       font-size: 15px;
       background: #fff;
       transition: border-color 0.2s ease;
+      color: #333;
     }
     .form-input:focus {
       outline: none;
@@ -71,9 +72,7 @@
       border-radius: 12px; 
       font-weight: 600; 
       margin-top: 20px; 
-      width: 85%;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
       display: block;
       font-size: 16px;
       cursor: pointer;
@@ -254,12 +253,16 @@
     <main class="content">
       <form id="searchForm" onsubmit="return false;">
         <div class="form-group">
+          <label for="referenceCode">Mã tham chiếu</label>
+          <input type="text" id="referenceCode" class="form-input" placeholder="Nhập mã tham chiếu">
+        </div>
+        <div class="form-group">
           <label for="fromDate">Từ ngày *</label>
           <input type="date" id="fromDate" class="form-input">
         </div>
         <div class="form-group">
           <label for="toDate">Đến ngày *</label>
-          <input type="date" id="toDate" class="form-input" readonly>
+          <input type="date" id="toDate" class="form-input">
         </div>
         <button type="button" class="btn-search" onclick="searchDocuments()">Tra cứu</button>
       </form>
@@ -347,11 +350,9 @@
       const oneYearAgo = new Date(vn); oneYearAgo.setFullYear(vn.getFullYear()-1);
       const minDate = oneYearAgo.toISOString().split('T')[0];
       fromDate.max = today; fromDate.min = minDate;
-      toDate.max = today; toDate.min = today;
-      toDate.readOnly = true;
-      toDate.style.backgroundColor = '#f5f5f5';
-      toDate.style.cursor = 'not-allowed';
+      toDate.max = today; toDate.min = minDate;
       fromDate.addEventListener('change', validateDateRange);
+      toDate.addEventListener('change', validateDateRange);
     }
 
     function validateDateRange(){
@@ -383,7 +384,8 @@
       // Load dữ liệu chứng từ từ localStorage
       const certificates = JSON.parse(localStorage.getItem(`etax_certificates_${loggedInUser}`)) || [];
       
-      // Filter theo ngày
+      // Filter theo mã tham chiếu và ngày
+      const referenceCode = document.getElementById('referenceCode').value.trim();
       const fromDate = document.getElementById('fromDate').value;
       const toDate = document.getElementById('toDate').value;
       
@@ -391,7 +393,14 @@
         const certDate = new Date(cert.paymentDate);
         const from = new Date(fromDate);
         const to = new Date(toDate);
-        return certDate >= from && certDate <= to;
+        
+        // Filter theo ngày
+        const dateMatch = certDate >= from && certDate <= to;
+        
+        // Filter theo mã tham chiếu nếu có nhập
+        const refMatch = !referenceCode || cert.referenceNumber.toLowerCase().includes(referenceCode.toLowerCase());
+        
+        return dateMatch && refMatch;
       });
       
       setTimeout(()=>{
