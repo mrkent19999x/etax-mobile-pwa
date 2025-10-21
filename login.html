@@ -22,12 +22,12 @@
 
     <style>
         /* ================================================================== */
-        /* LOGIN SCREEN - PWA NATIVE CLONE V2.0                             */
+        /* LOGIN SCREEN - PWA NATIVE CLONE V3.0                             */
         /* ================================================================== */
 
         /* 1. Thiết lập biến và Reset */
         :root {
-            --background-dark: #1a1a1a;
+            --background-color: #1a1a1a; /* Màu nền chính */
             --primary-red: #d9242a;
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
@@ -42,24 +42,18 @@
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; /* Loại bỏ highlight khi chạm */
+            -webkit-font-smoothing: antialiased; /* Làm mịn font chữ */
+            -moz-osx-font-smoothing: grayscale; /* Làm mịn font chữ */
         }
 
-        /* 2. Khóa Viewport & Layout chính */
+        /* 2. Khóa Viewport & Layout chính - Ảnh nền full màn hình */
         html, body {
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            position: fixed; /* Chống kéo trang */
-            background-color: var(--background-dark);
-        }
-        
-        .background-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: url(assets/bglogin.png) no-repeat center center/cover;
-            z-index: -1;
+            overflow: hidden; /* Khóa scroll */
+            position: fixed; /* Chống kéo trang trên iOS */
+            background: url(assets/bglogin.png) no-repeat center center/cover; /* Ảnh nền chính */
         }
 
         .app-container {
@@ -68,25 +62,27 @@
             width: 100vw;
             height: 100vh;
             padding-top: var(--safe-top);
+            padding-bottom: var(--safe-bottom);
         }
 
         /* 3. Layout Nội dung (Scrollable nếu cần) và Footer */
         .main-content {
-            flex-grow: 1;
-            overflow-y: auto;
+            flex-grow: 1; /* Chiếm hết không gian còn lại */
+            overflow-y: auto; /* Cho phép cuộn dọc */
+            -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0 35px;
+            padding: 0 30px; /* Căn lề 2 bên */
         }
-        .main-content::-webkit-scrollbar { display: none; }
+        .main-content::-webkit-scrollbar { display: none; } /* Ẩn scrollbar */
         .main-content { -ms-overflow-style: none; scrollbar-width: none; }
 
         .footer-nav {
             flex-shrink: 0;
             display: flex;
             justify-content: space-around;
-            background-color: rgba(20, 20, 20, 0.8);
+            background-color: rgba(20, 20, 20, 0.8); /* Nền mờ cho footer */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding-bottom: var(--safe-bottom);
@@ -107,9 +103,9 @@
             width: 26px; height: 26px; margin-bottom: 4px;
         }
 
-        /* 4. Brand Logo */
+        /* 4. Brand Logo Section */
         .brand-section {
-            padding: clamp(20px, 8vh, 60px) 0;
+            padding: clamp(30px, 10vh, 70px) 0 40px 0; /* Tăng padding */
             text-align: center;
             color: var(--text-primary);
         }
@@ -126,22 +122,24 @@
             width: 100%;
         }
         .brand-section h1 {
-            font-size: 24px; font-weight: 600;
+            font-size: 26px; /* Tăng cỡ chữ */
+            font-weight: 700; /* Đậm hơn */
         }
         
         /* 5. Form Đăng nhập */
-        .login-form { width: 100%; }
+        .login-form { width: 100%; max-width: 350px; }
         .error-message {
             color: var(--primary-red);
             font-weight: 500;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px; /* Tăng khoảng cách */
             display: none;
+            font-size: 15px;
         }
 
         .input-field {
             position: relative;
-            margin-bottom: 25px;
+            margin-bottom: 30px; /* Tăng khoảng cách giữa các trường input */
         }
         .input-field label {
             position: absolute;
@@ -149,7 +147,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-secondary);
-            font-size: 16px;
+            font-size: 16px; /* Cỡ chữ chuẩn */
             pointer-events: none;
             transition: all 0.2s ease;
         }
@@ -157,8 +155,8 @@
             position: absolute;
             left: 0; top: 50%;
             transform: translateY(-50%);
-            width: 20px;
-            opacity: 0.6;
+            width: 22px; /* To hơn một chút */
+            opacity: 0.8;
         }
         .form-input {
             width: 100%;
@@ -167,7 +165,7 @@
             border-bottom: 1px solid var(--input-border);
             padding: 10px 30px;
             color: var(--text-primary);
-            font-size: 16px;
+            font-size: 17px; /* Cỡ chữ input to hơn */
             font-weight: 500;
         }
         .form-input:focus {
@@ -175,18 +173,18 @@
             border-bottom-color: var(--text-highlight);
         }
         .form-input:focus + label, .form-input:not(:placeholder-shown) + label {
-            top: -10px;
+            top: -15px; /* Đẩy label lên cao hơn */
             left: 0;
-            font-size: 12px;
+            font-size: 13px; /* Cỡ chữ label nhỏ hơn khi active */
             color: var(--text-highlight);
         }
         .toggle-password {
             position: absolute;
             right: 0; top: 50%;
             transform: translateY(-50%);
-            width: 24px;
+            width: 26px; /* To hơn một chút */
             cursor: pointer;
-            opacity: 0.6;
+            opacity: 0.8;
         }
 
         /* 6. Links & Actions */
@@ -194,19 +192,19 @@
             display: flex;
             justify-content: space-between;
             margin-top: -10px;
-            margin-bottom: 25px;
+            margin-bottom: 30px; /* Tăng khoảng cách */
         }
         .helper-links a {
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 14px; /* Cỡ chữ chuẩn */
             text-decoration: none;
         }
         
         .action-row {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 20px; /* Tăng khoảng cách */
+            margin-bottom: 30px; /* Tăng khoảng cách */
         }
         .btn-login {
             flex-grow: 1;
@@ -214,13 +212,14 @@
             color: var(--text-primary);
             border: none;
             border-radius: 30px;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: 600;
+            padding: 16px 15px; /* Tăng padding */
+            font-size: 19px; /* To hơn và đậm hơn */
+            font-weight: 700;
             cursor: pointer;
         }
         .faceid-btn {
-            width: 50px; height: 50px; flex-shrink: 0; cursor: pointer;
+            width: 55px; height: 55px; /* To hơn */
+            flex-shrink: 0; cursor: pointer;
         }
         
         .vneid-button {
@@ -228,26 +227,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--text-primary);
+            background-color: var(--card-white); /* Chỉnh thành trắng */
             color: #000;
-            border: 1px solid #ccc;
+            border: none; /* Bỏ border */
             border-radius: 8px;
-            padding: 10px;
-            font-size: 14px;
+            padding: 12px;
+            font-size: 15px; /* To hơn */
             font-weight: 600;
             text-align: left;
             cursor: pointer;
-            margin-bottom: 25px;
+            margin-bottom: 35px; /* Tăng khoảng cách */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Thêm shadow */
         }
-        .vneid-button span { line-height: 1.3; }
-        .vneid-button img { width: 40px; margin-left: auto; }
+        .vneid-button span { line-height: 1.4; }
+        .vneid-button img {
+            width: 45px; /* To hơn */
+            margin-left: auto;
+            margin-right: -5px; /* Dịch sang trái một chút */
+        }
 
         /* 7. Register Section */
         .register-section {
             text-align: center;
             font-size: 14px;
             color: var(--text-secondary);
-            line-height: 1.5;
+            line-height: 1.6; /* Tăng line-height */
+            max-width: 350px;
+            margin-bottom: 20px; /* Để dồn lên trên */
+        }
+        .register-section p {
+            margin-bottom: 8px; /* Khoảng cách giữa các đoạn */
         }
         .register-section a {
             color: var(--text-highlight);
@@ -259,7 +268,7 @@
 </head>
 
 <body>
-    <div class="background-overlay"></div>
+    <!-- Background được đặt trực tiếp trong body -->
     <div class="app-container">
         
         <main class="main-content">
@@ -274,13 +283,13 @@
                 <div class="error-message" id="errorMsg"></div>
 
                 <div class="input-field">
-                    <img src="assets/icon-mst-new.svg" class="icon" alt="">
+                    <img src="assets/icon-mst-new.svg" class="icon" alt="Mã số thuế">
                     <input type="text" id="taxId" class="form-input" placeholder=" " autocomplete="username">
                     <label for="taxId">Mã số thuế</label>
                 </div>
 
                 <div class="input-field">
-                    <img src="assets/icon-password-new.svg" class="icon" alt="">
+                    <img src="assets/icon-password-new.svg" class="icon" alt="Mật khẩu">
                     <input type="password" id="password" class="form-input" placeholder=" " autocomplete="current-password">
                     <label for="password">Mật khẩu</label>
                     <img src="assets/icon-eye.svg" alt="Toggle Password" class="toggle-password" id="togglePassword">
@@ -304,24 +313,25 @@
 
             <section class="register-section">
                 <p>Bạn chưa có tài khoản? <a href="#">Đăng ký ngay</a></p>
+                <p class="foreign-user">Người nước ngoài hoặc người Việt Nam sống ở nước ngoài không có số định danh cá nhân chưa có mã số thuế? <a href="#">Đăng ký thuế ngay.</a></p>
             </section>
         </main>
 
         <footer class="footer-nav">
             <a href="#" class="nav-item">
-                <img src="assets/icon-qr.png" alt="">
+                <img src="assets/icon-qr.png" alt="QR tem">
                 <span>QR tem</span>
             </a>
             <a href="#" class="nav-item">
-                <img src="assets/tienich.png" alt="">
+                <img src="assets/tienich.png" alt="Tiện ích">
                 <span>Tiện ích</span>
             </a>
             <a href="#" class="nav-item">
-                <img src="assets/hotro.png" alt="">
+                <img src="assets/hotro.png" alt="Hỗ trợ">
                 <span>Hỗ trợ</span>
             </a>
             <a href="#" class="nav-item">
-                <img src="assets/chiase.png" alt="">
+                <img src="assets/chiase.png" alt="Chia sẻ">
                 <span>Chia sẻ</span>
             </a>
         </footer>
