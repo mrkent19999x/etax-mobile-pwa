@@ -1,0 +1,63 @@
+headersOrigin = "config"
+redirectsOrigin = "config"
+plugins = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "/home/phuc/Tài liệu/etax-mobile-pwa-main"
+publishOrigin = "config"
+commandOrigin = "config"
+command = "echo 'Static site - no build needed'"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[[headers]]
+for = "/*.js"
+
+[headers.values]
+Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+for = "/*.css"
+
+[headers.values]
+Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+for = "/manifest.json"
+
+[headers.values]
+Content-Type = "application/manifest+json"
+
+[[headers]]
+for = "/service-worker.js"
+
+[headers.values]
+Cache-Control = "public, max-age=0, must-revalidate"
+
+[[redirects]]
+from = "/*"
+to = "/login.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]

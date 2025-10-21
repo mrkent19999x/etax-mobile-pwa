@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-10-21T03:28:55.493Z",
+  "totalTests": 0,
+  "passed": 0,
+  "failed": 0,
+  "skipped": 0,
+  "duration": 0,
+  "passRate": "0%",
+  "testSuites": 0,
+  "browsers": [
+    "chromium-mobile",
+    "firefox-mobile",
+    "webkit-mobile"
+  ],
+  "environment": {
+    "baseURL": "https://anhbao-373f3.web.app",
+    "viewport": "414x896 (iPhone XS Max)",
+    "testFramework": "Playwright"
+  }
+}

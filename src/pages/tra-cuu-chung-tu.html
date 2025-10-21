@@ -1,0 +1,642 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Tra cứu chứng từ - eTax Mobile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <style>
+    :root { --red: #b71c1c; --muted:#f8f8f8; }
+    * { box-sizing: border-box; -webkit-font-smoothing:antialiased; }
+    html,body { margin:0; padding:0; background:#fff; font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-text-size-adjust:100%; }
+    .phone-frame { width:100vw; min-height:100vh; }
+
+    .header{
+      background: var(--red);
+      color:#fff;
+      height:100px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 0 20px;
+      position:fixed;
+      left:0; right:0; top:0; z-index: 1200;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+    .header .header-title { font-size:20px; font-weight:500; text-align:center; flex:1; }
+
+    main.content {
+      padding: 110px 12px 40px;
+      width:100%;
+      min-height: calc(100vh - 110px);
+    }
+
+    .form-group { 
+      margin-bottom: 16px; 
+    }
+    .form-group label { 
+      display: block;
+      color: #333; 
+      font-size: 14px; 
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .form-input { 
+      width: 100%;
+      padding: 12px 16px; 
+      border-radius: 8px; 
+      border: 1px solid #ddd; 
+      font-size: 15px;
+      background: #fff;
+      transition: border-color 0.2s ease;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--red);
+      box-shadow: 0 0 0 2px rgba(183, 28, 28, 0.1);
+    }
+
+    .btn-search { 
+      background: var(--red); 
+      color: #fff; 
+      border: none; 
+      padding: 14px 24px; 
+      border-radius: 12px; 
+      font-weight: 600; 
+      margin-top: 20px; 
+      width: 85%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(183, 28, 28, 0.3);
+    }
+    .btn-search:hover {
+      background: #a0151a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(183, 28, 28, 0.4);
+    }
+
+    /* Bảng kết quả */
+    .result-table {
+      margin-top: 18px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+    }
+    .result-table table {
+      width:100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size:14px;
+    }
+    .result-table col.col-ref { width: 20%; }
+    .result-table col.col-amount { width: 18%; }
+    .result-table col.col-date { width: 22%; }
+    .result-table col.col-status { width: 30%; }
+    .result-table col.col-select { width: 10%; }
+
+    .result-table thead th {
+      background: #f3f3f3;
+      color:#333;
+      font-size:12px;
+      padding: 10px 6px;
+      border: 1px solid #ccc;
+      font-weight:700;
+      text-align:center;
+      vertical-align: middle;
+    }
+    .result-table tbody td {
+      padding: 12px 6px;
+      border: 1px solid #ccc;
+      vertical-align: middle;
+      word-break: break-word;
+      font-size:14px;
+      text-align:center;
+      line-height:1.25;
+    }
+    .result-table tbody td.ref {
+      text-align:center;
+      padding: 8px 6px;
+      font-size:12px;
+      white-space: normal;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+    .result-table tbody td.amount { 
+      color: #28a745; 
+      font-weight: 600; 
+      font-size: 14px;
+      text-align: center;
+    }
+    .result-table tbody td.date { 
+      font-size: 12px; 
+      text-align: center;
+      line-height: 1.3;
+      padding: 8px 4px;
+    }
+    .result-table tbody td.status { 
+      font-size: 11px; 
+      color: #333; 
+      text-align: left; 
+      padding: 6px 8px; 
+      line-height: 1.2;
+      vertical-align: top;
+    }
+
+    /* Radio button style */
+    .cert-radio {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--red);
+      cursor: pointer;
+    }
+
+    /* Nút In chứng từ */
+    .btn-print {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-top: 16px;
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(183, 28, 28, 0.3);
+    }
+    .btn-print:hover:not(:disabled) {
+      background: #a0151a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(183, 28, 28, 0.4);
+    }
+    .btn-print:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Popup */
+    .download-popup {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      z-index: 1500;
+      backdrop-filter: blur(2px);
+    }
+    .popup-content {
+      width: min(360px, 92%);
+      max-width: 360px;
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      text-align: center;
+    }
+    .popup-body { padding: 22px 22px 16px; }
+    .popup-title { font-size: 20px; font-weight:700; color:#111; margin-bottom:8px; }
+    .popup-sub { font-size:18px; color:#333; margin-bottom:6px; }
+    .popup-actions {
+      display:flex;
+      border-top: 2px solid rgba(183,28,28,0.08);
+      background: #fff;
+    }
+    .popup-actions button {
+      flex:1;
+      padding: 16px 10px;
+      border: none;
+      background: transparent;
+      font-size: 17px;
+      font-weight:700;
+      color: var(--red);
+      cursor: pointer;
+    }
+    .popup-actions button:not(:last-child) {
+      border-right: 1px solid rgba(0,0,0,0.06);
+    }
+
+    @media (max-width:420px){
+      .result-table thead th { font-size:11px; padding:8px 4px; }
+      .result-table tbody td { padding:8px 4px; font-size:12px; }
+      .print-btn { width:24px; height:24px; font-size:12px; }
+      .popup-title { font-size:18px; }
+      .popup-sub { font-size:16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <header class="header">
+      <i class="fas fa-arrow-left" onclick="goBack()" style="font-size:20px; cursor:pointer;"></i>
+      <div class="header-title">Tra cứu chứng từ</div>
+      <i class="fas fa-house" onclick="goHome()" style="font-size:20px;"></i>
+    </header>
+
+    <main class="content">
+      <form id="searchForm" onsubmit="return false;">
+        <div class="form-group">
+          <label for="fromDate">Từ ngày *</label>
+          <input type="date" id="fromDate" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="toDate">Đến ngày *</label>
+          <input type="date" id="toDate" class="form-input" readonly>
+        </div>
+        <button type="button" class="btn-search" onclick="searchDocuments()">Tra cứu</button>
+      </form>
+
+      <div class="result-table" id="resultsTable" style="display:none;">
+        <table>
+          <colgroup>
+            <col class="col-ref">
+            <col class="col-amount">
+            <col class="col-date">
+            <col class="col-status">
+            <col class="col-select">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Mã<br>tham<br>chiếu</th>
+              <th>Số tiền</th>
+              <th>Ngày nộp</th>
+              <th>Trạng<br>thái</th>
+              <th style="text-align:center;">In<br>chứng từ</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody"></tbody>
+        </table>
+        <button type="button" class="btn-print" id="printBtn" onclick="printSelectedCertificate()" disabled>In chứng từ</button>
+      </div>
+    </main>
+  </div>
+
+  <div class="download-popup" id="downloadPopup" aria-hidden="true">
+    <div class="popup-content" role="dialog" aria-modal="true">
+      <div class="popup-body">
+        <div class="popup-title">Bạn có muốn tải chứng từ?</div>
+        <div class="popup-sub">Tải ngay!</div>
+      </div>
+      <div class="popup-actions">
+        <button type="button" onclick="cancelDownload()">Bỏ qua</button>
+        <button type="button" onclick="confirmDownload()">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD_rJgBFgBulheVenQUE2KXr4PBpSpTCxw",
+      authDomain: "etax-7fbf8.firebaseapp.com",
+      databaseURL: "https://etax-7fbf8-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "etax-7fbf8",
+      storageBucket: "etax-7fbf8.appspot.com",
+      messagingSenderId: "1030026724634",
+      appId: "1:1030026724634:web:d76f5f9dad43bad6fd58a3",
+      measurementId: "G-YS5DLECJE6"
+    };
+    try { firebase.initializeApp(firebaseConfig); } catch(e){}
+    const db = firebase.database ? firebase.database() : null;
+
+    let searchResults = [];
+    let pendingDownloadId = null;
+
+    document.addEventListener('DOMContentLoaded', function(){
+      setDefaultDateRange();
+      setupDateValidation();
+    });
+
+    function goBack(){ if(window.history.length>1) window.history.back(); else window.location.href='index.html'; }
+    function goHome(){ window.location.href='index.html'; }
+
+    function setDefaultDateRange(){
+      const now = new Date();
+      const vn = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+      const yyyy = vn.getFullYear();
+      const mm = String(vn.getMonth()+1).padStart(2,'0');
+      const dd = String(vn.getDate()).padStart(2,'0');
+      const today = `${yyyy}-${mm}-${dd}`;
+      document.getElementById('fromDate').value = today;
+      document.getElementById('toDate').value = today;
+    }
+
+    function setupDateValidation(){
+      const fromDate = document.getElementById('fromDate');
+      const toDate = document.getElementById('toDate');
+      const now = new Date();
+      const vn = new Date(now.getTime() + (7*60 - now.getTimezoneOffset())*60000);
+      const today = vn.toISOString().split('T')[0];
+      const oneYearAgo = new Date(vn); oneYearAgo.setFullYear(vn.getFullYear()-1);
+      const minDate = oneYearAgo.toISOString().split('T')[0];
+      fromDate.max = today; fromDate.min = minDate;
+      toDate.max = today; toDate.min = today;
+      toDate.readOnly = true;
+      toDate.style.backgroundColor = '#f5f5f5';
+      toDate.style.cursor = 'not-allowed';
+      fromDate.addEventListener('change', validateDateRange);
+    }
+
+    function validateDateRange(){
+      const f = document.getElementById('fromDate').value;
+      const t = document.getElementById('toDate').value;
+      if(!f||!t) return true;
+      const from = new Date(f), to = new Date(t);
+      const now = new Date(), vn = new Date(now.getTime() + (7*60 - now.getTimezoneOffset())*60000);
+      const today = new Date(vn.toISOString().split('T')[0]);
+      const oneYearAgo = new Date(vn); oneYearAgo.setFullYear(vn.getFullYear()-1);
+      if (from > to) { alert('❌ Ngày bắt đầu không thể lớn hơn ngày kết thúc'); return false; }
+      const diffDays = Math.ceil(Math.abs(to-from)/(1000*60*60*24));
+      if (diffDays > 365) { alert('❌ Khoảng thời gian tra cứu không được vượt quá 1 năm'); return false; }
+      if (from < oneYearAgo || to > today) { alert('❌ Thời gian tra cứu chỉ được phép trong vòng 1 năm gần nhất'); return false; }
+      return true;
+    }
+
+    async function searchDocuments(){
+      if (!validateDateRange()) return;
+      document.getElementById('resultsTable').style.display = 'none';
+      
+      // Lấy MST từ localStorage
+      const loggedInUser = localStorage.getItem('etax_logged_in_user');
+      if (!loggedInUser) {
+        alert('❌ Vui lòng đăng nhập để tra cứu chứng từ');
+        return;
+      }
+      
+      // Load dữ liệu chứng từ từ localStorage
+      const certificates = JSON.parse(localStorage.getItem(`etax_certificates_${loggedInUser}`)) || [];
+      
+      // Filter theo ngày
+      const fromDate = document.getElementById('fromDate').value;
+      const toDate = document.getElementById('toDate').value;
+      
+      const filteredCerts = certificates.filter(cert => {
+        const certDate = new Date(cert.paymentDate);
+        const from = new Date(fromDate);
+        const to = new Date(toDate);
+        return certDate >= from && certDate <= to;
+      });
+      
+      setTimeout(()=>{
+        searchResults = filteredCerts;
+        displayResults(filteredCerts);
+      }, 600);
+    }
+
+    function displayResults(docs){
+      const tbody = document.getElementById('resultsBody');
+      const resultsTable = document.getElementById('resultsTable');
+      const printBtn = document.getElementById('printBtn');
+      
+      // Ẩn bảng trước
+      resultsTable.style.display = 'none';
+      
+      if (docs.length === 0) {
+        // Chỉ hiển thị thông báo đỏ dưới nút Tra cứu, không hiện bảng
+        alert('❌ Không tìm thấy dữ liệu');
+        return;
+      }
+      
+      // Có chứng từ - hiển thị bảng
+      tbody.innerHTML = '';
+      
+      docs.forEach((doc, index)=>{
+        const amt = formatAmount(doc.amount);
+        const dt = formatDateTime(doc.paymentDate);
+        const refHtml = doc.referenceNumber.replace(/\n/g, '<br/>');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="ref">${refHtml}</td>
+          <td class="amount">${amt}</td>
+          <td class="date">${dt}</td>
+          <td class="status" style="white-space:pre-line; line-height:1.3; padding:8px 4px; font-size:13px; text-align:center; vertical-align:middle;">Thành công –<br>NH/TGTT<br>đã trừ tiền thành công</td>
+          <td class="select" style="text-align:center; vertical-align:middle;">
+            <i class="fas fa-circle" onclick="selectCertificate('${doc.id}')" 
+               style="color:var(--red); font-size:16px; cursor:pointer;"></i>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      
+      resultsTable.style.display = 'block';
+      
+      // Auto-select certificate đầu tiên
+      if (docs.length > 0) {
+        const firstCertId = docs[0].id;
+        selectCertificate(firstCertId);
+      } else {
+        printBtn.disabled = true;
+      }
+    }
+
+    function formatDateTime(d){
+      if(!d) return '';
+      const date = new Date(d);
+      const dd = String(date.getDate()).padStart(2,'0');
+      const mm = String(date.getMonth()+1).padStart(2,'0');
+      const yyyy = date.getFullYear();
+      const hh = String(date.getHours()).padStart(2,'0');
+      const min = String(date.getMinutes()).padStart(2,'0');
+      return `${dd}/${mm}/${yyyy}<br/>${hh}:${min}:15`;
+    }
+    function formatAmount(amount){
+      if(amount==null) return '0';
+      const num = Number(String(amount).replace(/[^0-9\-\.]/g,''));
+      if(isNaN(num)) return amount;
+      return num.toLocaleString('vi-VN');
+    }
+
+    function selectCertificate(certId) {
+      // Reset all icons to default state
+      document.querySelectorAll('.fas.fa-circle').forEach(icon => {
+        icon.style.opacity = '0.3';
+        icon.style.transform = 'scale(1)';
+      });
+      
+      // Highlight selected certificate
+      const selectedIcon = document.querySelector(`[onclick="selectCertificate('${certId}')"]`);
+      if (selectedIcon) {
+        selectedIcon.style.opacity = '1';
+        selectedIcon.style.transform = 'scale(1.2)';
+      }
+      
+      // Enable print button
+      const printBtn = document.getElementById('printBtn');
+      printBtn.disabled = false;
+      printBtn.setAttribute('data-cert-id', certId);
+    }
+
+    function togglePrintButton(){
+      const printBtn = document.getElementById('printBtn');
+      const selectedRadio = document.querySelector('input[name="taxCertificate"]:checked');
+      printBtn.disabled = !selectedRadio;
+    }
+
+    function printSelectedCertificate(){
+      const printBtn = document.getElementById('printBtn');
+      const certId = printBtn.getAttribute('data-cert-id');
+      
+      if (!certId) {
+        alert('❌ Vui lòng chọn chứng từ để in');
+        return;
+      }
+      
+      const cert = searchResults.find(c => c.id === certId);
+      if (!cert) {
+        alert('❌ Không tìm thấy chứng từ');
+        return;
+      }
+      
+      pendingDownloadId = certId;
+      const popup = document.getElementById('downloadPopup');
+      popup.style.display = 'flex';
+      popup.setAttribute('aria-hidden','false');
+    }
+    function cancelDownload(){
+      pendingDownloadId = null;
+      const popup = document.getElementById('downloadPopup');
+      popup.style.display = 'none';
+      popup.setAttribute('aria-hidden','true');
+    }
+    function confirmDownload(){
+      const popup = document.getElementById('downloadPopup');
+      popup.style.display = 'none';
+      popup.setAttribute('aria-hidden','true');
+      if(!pendingDownloadId) return;
+      
+      const cert = searchResults.find(c => c.id === pendingDownloadId);
+      if (cert) {
+        // Tạo PDF từ dữ liệu certificate
+        downloadCertificatePDF(cert);
+      } else {
+        alert('❌ Không tìm thấy chứng từ');
+      }
+      
+      pendingDownloadId = null;
+    }
+
+    function downloadCertificatePDF(cert) {
+      // Tạo PDF content từ certificate data
+      const pdfContent = generatePDFContent(cert);
+      
+      // Tạo blob và download
+      const blob = new Blob([pdfContent], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      
+      // Tạo link download
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `chung-tu-${cert.referenceNumber}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      
+      // Cleanup
+      URL.revokeObjectURL(url);
+      
+      console.log('PDF downloaded:', cert.referenceNumber);
+    }
+
+    function generatePDFContent(cert) {
+      // Tạo PDF content đơn giản (có thể dùng thư viện PDF generation)
+      const content = `
+%PDF-1.4
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+
+2 0 obj
+<<
+/Type /Pages
+/Kids [3 0 R]
+/Count 1
+>>
+endobj
+
+3 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/MediaBox [0 0 612 792]
+/Contents 4 0 R
+/Resources <<
+/Font <<
+/F1 5 0 R
+>>
+>>
+>>
+endobj
+
+4 0 obj
+<<
+/Length 200
+>>
+stream
+BT
+/F1 12 Tf
+100 700 Td
+(CHUNG TU THUE) Tj
+0 -20 Td
+(Ma tham chieu: ${cert.referenceNumber}) Tj
+0 -20 Td
+(So tien: ${cert.amount} VND) Tj
+0 -20 Td
+(Ngay nop: ${cert.paymentDate}) Tj
+0 -20 Td
+(Trang thai: ${cert.status.replace(/\n/g, ' ')}) Tj
+ET
+endstream
+endobj
+
+5 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+>>
+endobj
+
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000274 00000 n 
+0000000524 00000 n 
+trailer
+<<
+/Size 6
+/Root 1 0 R
+>>
+startxref
+612
+%%EOF
+      `;
+      
+      return content;
+    }
+  </script>
+</body>
+</html>
+

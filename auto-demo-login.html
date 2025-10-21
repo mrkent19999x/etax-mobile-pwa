@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Auto Demo Login - eTax Mobile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .step {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: bold;
+            border-left: 4px solid #007bff;
+        }
+        .success { background: #d4edda; color: #155724; border-left-color: #28a745; }
+        .error { background: #f8d7da; color: #721c24; border-left-color: #dc3545; }
+        .info { background: #d1ecf1; color: #0c5460; border-left-color: #17a2b8; }
+        .warning { background: #fff3cd; color: #856404; border-left-color: #ffc107; }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .demo-info {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .credentials {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #e9ecef;
+        }
+        .progress {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, #28a745, #20c997);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Auto Demo Login - eTax Mobile</h1>
+        
+        <div class="demo-info">
+            <h2>🎯 Demo tự động đăng nhập</h2>
+            <p>Em sẽ tự động tạo MST và đăng nhập cho anh xem!</p>
+        </div>
+        
+        <div class="progress">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+        
+        <div id="steps"></div>
+        
+        <button onclick="startAutoDemo()" id="startBtn">🚀 Bắt đầu Demo</button>
+        <button onclick="clearSteps()" id="clearBtn">🗑️ Xóa kết quả</button>
+        
+        <div class="credentials">
+            <h3>📱 Thông tin đăng nhập sẽ được tạo:</h3>
+            <p><strong>MST:</strong> 1221995</p>
+            <p><strong>Mật khẩu:</strong> 123456</p>
+            <p><strong>Tên:</strong> NGUYỄN VĂN NGHĨA</p>
+        </div>
+    </div>
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_rJgBFgBulheVenQUE2KXr4PBpSpTCxw",
+            authDomain: "etax-7fbf8.firebaseapp.com",
+            databaseURL: "https://etax-7fbf8-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "etax-7fbf8",
+            storageBucket: "etax-7fbf8.appspot.com",
+            messagingSenderId: "1030026724634",
+            appId: "1:1030026724634:web:d76f5f9dad43bad6fd58a3",
+            measurementId: "G-YS5DLECJE6"
+        };
+
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+        } catch (e) {
+            console.log('Firebase already initialized');
+        }
+
+        const db = firebase.firestore ? firebase.firestore() : null;
+        let currentStep = 0;
+        const totalSteps = 5;
+
+        function updateProgress(step) {
+            const percentage = Math.round((step / totalSteps) * 100);
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressBar').textContent = percentage + '%';
+        }
+
+        function addStep(message, type = 'info') {
+            const stepsDiv = document.getElementById('steps');
+            const stepDiv = document.createElement('div');
+            stepDiv.className = `step ${type}`;
+            stepDiv.innerHTML = `<strong>Bước ${currentStep + 1}:</strong> ${message}`;
+            stepsDiv.appendChild(stepDiv);
+            currentStep++;
+            updateProgress(currentStep);
+        }
+
+        function clearSteps() {
+            document.getElementById('steps').innerHTML = '';
+            currentStep = 0;
+            updateProgress(0);
+            document.getElementById('startBtn').disabled = false;
+        }
+
+        async function startAutoDemo() {
+            document.getElementById('startBtn').disabled = true;
+            clearSteps();
+            
+            addStep('🔄 Khởi tạo Firebase connection...', 'info');
+            
+            if (!db) {
+                addStep('❌ Không thể kết nối Firebase', 'error');
+                return;
+            }
+            
+            addStep('✅ Firebase đã sẵn sàng', 'success');
+            
+            // Step 1: Create MST 1221995
+            addStep('🔄 Đang tạo MST 1221995...', 'info');
+            
+            const mstData = {
+                mst: '1221995',
+                password: '123456',
+                fullName: 'NGUYỄN VĂN NGHĨA',
+                address: '123 Đường ABC, Quận 1, TP.HCM',
+                taxOffice: 'Cục Thuế TP.HCM',
+                phone: '0901234567',
+                email: 'nghia@example.com',
+                taxInfo: {
+                    totalAmount: '2,500,000 VND',
+                    paidAmount: '1,000,000 VND',
+                    pendingAmount: '1,500,000 VND',
+                    items: [
+                        {
+                            id: 'T001',
+                            decision: 'QĐ001/2024',
+                            date: '01/01/2024',
+                            office: 'Cục Thuế TP.HCM',
+                            chapter: 'Chương 1',
+                            period: 'Quý 1/2024',
+                            type: 'Thuế thu nhập',
+                            region: 'TP.HCM',
+                            dueDate: '31/03/2024',
+                            amount: '2,500,000 VND',
+                            paid: '1,000,000 VND',
+                            status: 'Chưa nộp đủ',
+                            reference: 'REF001'
+                        }
+                    ]
+                }
+            };
+            
+            try {
+                await db.collection('users').doc('1221995').set(mstData);
+                addStep('✅ Đã tạo MST 1221995 thành công!', 'success');
+            } catch (error) {
+                addStep(`❌ Lỗi khi tạo MST: ${error.message}`, 'error');
+                return;
+            }
+            
+            // Step 2: Test Login
+            addStep('🔄 Đang test đăng nhập với MST 1221995...', 'info');
+            
+            try {
+                const doc = await db.collection('users').doc('1221995').get();
+                
+                if (doc.exists) {
+                    const userData = doc.data();
+                    
+                    if (userData.password === '123456') {
+                        addStep('✅ Đăng nhập thành công!', 'success');
+                        addStep('🎉 Demo hoàn thành! Anh có thể đăng nhập trên điện thoại với MST: 1221995, Pass: 123456', 'success');
+                        
+                        // Simulate redirect
+                        setTimeout(() => {
+                            addStep('🔄 Đang chuyển hướng đến trang chính...', 'info');
+                            setTimeout(() => {
+                                addStep('✅ Demo hoàn thành! Hệ thống hoạt động bình thường', 'success');
+                                document.getElementById('startBtn').disabled = false;
+                            }, 1000);
+                        }, 1000);
+                        
+                    } else {
+                        addStep('❌ Mật khẩu không đúng', 'error');
+                    }
+                } else {
+                    addStep('❌ Không tìm thấy MST trong database', 'error');
+                }
+                
+            } catch (error) {
+                addStep(`❌ Lỗi khi test đăng nhập: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-start demo when page loads
+        window.onload = function() {
+            addStep('🚀 Trang demo đã sẵn sàng!', 'success');
+            addStep('💡 Click "Bắt đầu Demo" để em tự động tạo MST và test đăng nhập', 'info');
+        };
+    </script>
+</body>
+</html>

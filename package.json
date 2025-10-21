@@ -1,0 +1,32 @@
+{
+  "name": "etax-mobile-pwa-main",
+  "version": "1.0.0",
+  "description": "**Clone 100% UX/UI eTax chính thức thành PWA tĩnh, tối ưu cho mobile với trải nghiệm native.**",
+  "main": "service-worker.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-admin-login": "node test-admin-login-flow.js",
+    "dev": "live-server --port=3000 --host=0.0.0.0 --open=/login.html --watch=*.html,css/*,assets/*,src/*",
+    "serve": "live-server --port=3000 --host=0.0.0.0 --open=/login.html",
+    "firebase-deploy": "firebase deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tranphuc21995-bit/etaxfinal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tranphuc21995-bit/etaxfinal/issues"
+  },
+  "homepage": "https://github.com/tranphuc21995-bit/etaxfinal#readme",
+  "devDependencies": {
+    "firebase-tools": "^14.20.0",
+    "live-server": "^1.2.2",
+    "puppeteer": "^21.0.0"
+  }
+}

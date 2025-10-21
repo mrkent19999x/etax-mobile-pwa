@@ -1,0 +1,32 @@
+{
+  "name": "eTax Mobile - Thuế Nhà Nước",
+  "short_name": "eTax Mobile",
+  "description": "Ứng dụng thuế điện tử của Tổng cục Thuế",
+  "start_url": "/login.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "scope": "/",
+  "lang": "vi",
+  "icons": [
+    {
+      "src": "assets/logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/logo.webp", 
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "government"],
+  "prefer_related_applications": false,
+  "display_override": ["standalone", "minimal-ui"],
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

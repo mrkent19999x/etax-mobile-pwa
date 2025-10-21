@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Login - eTax Mobile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .mst-list {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test Đăng Nhập eTax Mobile</h1>
+        
+        <div id="testResults"></div>
+        
+        <button onclick="listAvailableMSTs()">📋 Danh sách MST có sẵn</button>
+        <button onclick="testLogin()">🔐 Test đăng nhập MST 0123456789</button>
+        <button onclick="clearResults()">🗑️ Xóa kết quả</button>
+        
+        <div class="mst-list">
+            <h3>📱 Hướng dẫn test trên điện thoại:</h3>
+            <p><strong>MST:</strong> 0123456789</p>
+            <p><strong>Mật khẩu:</strong> 123456</p>
+            <p><strong>URL:</strong> <a href="http://localhost:8082/login.html" target="_blank">http://localhost:8082/login.html</a></p>
+        </div>
+    </div>
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_rJgBFgBulheVenQUE2KXr4PBpSpTCxw",
+            authDomain: "etax-7fbf8.firebaseapp.com",
+            databaseURL: "https://etax-7fbf8-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "etax-7fbf8",
+            storageBucket: "etax-7fbf8.appspot.com",
+            messagingSenderId: "1030026724634",
+            appId: "1:1030026724634:web:d76f5f9dad43bad6fd58a3",
+            measurementId: "G-YS5DLECJE6"
+        };
+
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+        } catch (e) {
+            console.log('Firebase already initialized');
+        }
+
+        const db = firebase.firestore ? firebase.firestore() : null;
+
+        function addResult(message, type = 'info') {
+            const resultsDiv = document.getElementById('testResults');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.textContent = message;
+            resultsDiv.appendChild(resultDiv);
+        }
+
+        function clearResults() {
+            document.getElementById('testResults').innerHTML = '';
+        }
+
+        async function listAvailableMSTs() {
+            addResult('🔄 Đang tải danh sách MST từ Firebase...', 'info');
+            
+            if (!db) {
+                addResult('❌ Không thể kết nối Firebase', 'error');
+                return;
+            }
+            
+            try {
+                const querySnapshot = await db.collection('users').get();
+                
+                addResult(`📊 Tìm thấy ${querySnapshot.size} MST trong hệ thống:`, 'success');
+                
+                querySnapshot.forEach((doc) => {
+                    const mst = doc.id;
+                    const userData = doc.data();
+                    addResult(`- MST: ${mst} | Tên: ${userData.fullName || 'N/A'} | Pass: ${userData.password || 'N/A'}`, 'info');
+                });
+                
+            } catch (error) {
+                addResult(`❌ Lỗi khi tải danh sách: ${error.message}`, 'error');
+            }
+        }
+
+        async function testLogin() {
+            addResult('🔄 Đang test đăng nhập với MST 0123456789...', 'info');
+            
+            const testMST = '0123456789';
+            const testPassword = '123456';
+            
+            if (!db) {
+                addResult('❌ Không thể kết nối Firebase', 'error');
+                return;
+            }
+            
+            try {
+                const doc = await db.collection('users').doc(testMST).get();
+                
+                if (doc.exists) {
+                    const userData = doc.data();
+                    addResult(`✅ Tìm thấy MST ${testMST} trong Firebase`, 'success');
+                    addResult(`📋 Thông tin: ${userData.fullName || 'N/A'}`, 'info');
+                    
+                    if (userData.password === testPassword) {
+                        addResult('✅ Mật khẩu đúng! Đăng nhập thành công', 'success');
+                        addResult('🎉 Hệ thống hoạt động bình thường', 'success');
+                        addResult('📱 Anh có thể đăng nhập trên điện thoại với thông tin này', 'info');
+                    } else {
+                        addResult(`❌ Mật khẩu sai. Mong đợi: ${testPassword}, Thực tế: ${userData.password}`, 'error');
+                    }
+                } else {
+                    addResult(`❌ Không tìm thấy MST ${testMST} trong Firebase`, 'error');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Lỗi khi test đăng nhập: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-run tests when page loads
+        window.onload = function() {
+            addResult('🚀 Trang test đã sẵn sàng!', 'success');
+            addResult('💡 Click các nút bên trên để test hệ thống', 'info');
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "mockMST": "9999999999",
+  "mockPassword": "firestore123",
+  "adminCreds": {
+    "username": "admin",
+    "password": "Baoan2022"
+  },
+  "testTimestamp": "2025-10-21T03:27:23.274Z",
+  "baseURL": "https://anhbao-373f3.web.app"
+}
