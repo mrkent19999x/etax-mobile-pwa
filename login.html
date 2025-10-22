@@ -131,7 +131,7 @@
             <div class="field">
                 <label for="taxId" class="field-label">Mã số thuế</label>
                 <div class="field-input">
-                    <img src="assets/icon-mst-new.svg" alt="Mã số thuế">
+                    <img src="assets/icon-mst-simple.svg" alt="Mã số thuế">
                     <input type="text" id="taxId" class="form-input" autocomplete="username">
                 </div>
             </div>
@@ -139,9 +139,9 @@
             <div class="field">
                 <label for="password" class="field-label">Mật khẩu</label>
                 <div class="field-input">
-                    <img src="assets/icon-password-new.svg" alt="Mật khẩu">
+                    <img src="assets/icon-password-simple.svg" alt="Mật khẩu">
                     <input type="password" id="password" class="form-input" autocomplete="current-password">
-                    <img src="assets/icon-eye.svg" alt="Ẩn/hiện mật khẩu" class="toggle" id="togglePassword">
+                    <img src="assets/icon-eye-simple.svg" alt="Ẩn/hiện mật khẩu" class="toggle" id="togglePassword">
                 </div>
             </div>
 
@@ -199,10 +199,10 @@
 
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                toggleIcon.src = 'assets/icon-eye-closed.svg';
+                toggleIcon.src = 'assets/icon-eye-closed-simple.svg';
             } else {
                 passwordInput.type = 'password';
-                toggleIcon.src = 'assets/icon-eye.svg';
+                toggleIcon.src = 'assets/icon-eye-simple.svg';
             }
         });
 

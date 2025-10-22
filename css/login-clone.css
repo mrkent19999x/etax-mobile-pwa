@@ -45,6 +45,19 @@ html, body {
     user-select: none !important;
 }
 
+/* SVG Icon fixes for mobile */
+svg {
+    display: block !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+img[src$=".svg"] {
+    display: block !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
 /* Allow text input selection */
 input, textarea {
     -webkit-user-select: text !important;
@@ -159,6 +172,8 @@ input, textarea {
     width: clamp(16px, 3vw, 24px); /* Auto-scale icons */
     height: clamp(16px, 3vw, 24px);
     filter: none;
+    display: block; /* Ensure icons are displayed */
+    flex-shrink: 0; /* Prevent icon shrinking */
 }
 
 .field-input input {
