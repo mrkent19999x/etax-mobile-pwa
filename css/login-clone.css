@@ -14,7 +14,7 @@
     scrollbar-width: none;
 }
 
-/* Prevent ALL scrolling behaviors */
+/* Prevent ALL scrolling behaviors and lock orientation */
 html, body {
     overscroll-behavior: none !important;
     -webkit-overflow-scrolling: none !important;
@@ -35,6 +35,9 @@ html, body {
     touch-action: none !important; /* KHÓA HOÀN TOÀN scroll gestures */
     display: flex; /* Biến body thành container flex */
     flex-direction: column; /* Xếp các phần tử con theo chiều dọc */
+    /* 🔒 KHÓA XOAY MÀN HÌNH */
+    orientation: portrait !important;
+    transform-origin: center center;
 }
 
 /* Disable text selection except inputs */
@@ -213,7 +216,8 @@ input, textarea {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: clamp(11px, 2.5vw, 14px); /* Auto-scale helper text */
+    font-size: clamp(15px, 2.5vw, 18px); /* Auto-scale helper text */
+    font-family: "Rounded Mplus 1c", "Arial Rounded MT Bold", "Helvetica Rounded", sans-serif;
     color: #ffd200; /* Giữ màu vàng như ảnh gốc */
     margin-top: max(-0.5vh, -4px);
     padding: 0 max(0.5vw, 4px);
@@ -294,7 +298,8 @@ input, textarea {
 .vneid-text {
     color: #222;
     text-align: left; /* Căn trái như ảnh gốc */
-    font-size: clamp(14px, 3.5vw, 18px); /* Auto-scale vneid text */
+    font-size: clamp(18px, 3.5vw, 22px); /* Auto-scale vneid text */
+    font-family: "Rounded Mplus 1c", "Arial Rounded MT Bold", "Helvetica Rounded", sans-serif;
     font-weight: 600; /* Tăng weight */
     line-height: 1.5;
     letter-spacing: clamp(0.1px, 0.05vw, 0.2px);
@@ -310,7 +315,8 @@ input, textarea {
     width: 100%;
     max-width: min(90vw, 360px); /* Responsive max-width */
     margin-top: max(1.5vh, 16px); /* Responsive margin */
-    font-size: clamp(14px, 3.2vw, 18px); /* Tăng font size cho rõ ràng hơn */
+    font-size: clamp(18px, 3.2vw, 22px); /* Tăng font size cho rõ ràng hơn */
+    font-family: "Rounded Mplus 1c", "Arial Rounded MT Bold", "Helvetica Rounded", sans-serif;
     line-height: 1.6; /* Tăng line-height để dễ đọc */
     color: rgba(255, 255, 255, 0.95); /* Tăng opacity để rõ hơn */
     text-align: left;
@@ -380,7 +386,155 @@ input, textarea {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
-/* ===== RESPONSIVE BREAKPOINTS - SIMPLIFIED ===== */
+/* ===== RESPONSIVE BREAKPOINTS - ENHANCED FOR ALL DEVICES ===== */
+
+/* iPhone SE (4.7 inch) - Small screens */
+@media (max-width: 375px) and (max-height: 667px) {
+    .screen {
+        padding: max(1.5vh, 16px) max(3vw, 12px) max(6vh, 50px);
+    }
+    
+    .brand .logo-circle {
+        width: clamp(70px, 10vw, 90px);
+        height: clamp(70px, 10vw, 90px);
+    }
+    
+    .brand h1 {
+        font-size: clamp(20px, 5vw, 24px);
+    }
+    
+    .field-label {
+        font-size: clamp(16px, 4vw, 18px);
+    }
+    
+    .field-input input {
+        font-size: clamp(16px, 4vw, 18px);
+    }
+    
+    .helper-links {
+        font-size: clamp(13px, 2.5vw, 16px);
+    }
+    
+    .vneid-text {
+        font-size: clamp(16px, 3.5vw, 20px);
+    }
+    
+    .register {
+        font-size: clamp(16px, 3.2vw, 20px);
+    }
+    
+    .btn-primary {
+        font-size: clamp(14px, 3vw, 16px);
+    }
+}
+
+/* iPhone 12/13/14 (6.1 inch) - Standard screens */
+@media (min-width: 376px) and (max-width: 428px) and (min-height: 844px) {
+    .screen {
+        padding: max(2vh, 20px) max(2vw, 16px) max(8vh, 60px);
+    }
+    
+    .brand .logo-circle {
+        width: clamp(90px, 12vw, 110px);
+        height: clamp(90px, 12vw, 110px);
+    }
+    
+    .brand h1 {
+        font-size: clamp(24px, 6vw, 28px);
+    }
+    
+    .field-label {
+        font-size: clamp(18px, 4vw, 20px);
+    }
+    
+    .field-input input {
+        font-size: clamp(18px, 4vw, 20px);
+    }
+    
+    .helper-links {
+        font-size: clamp(15px, 2.5vw, 18px);
+    }
+    
+    .vneid-text {
+        font-size: clamp(18px, 3.5vw, 22px);
+    }
+    
+    .register {
+        font-size: clamp(18px, 3.2vw, 22px);
+    }
+}
+
+/* iPhone 14 Pro Max (6.7 inch) - Large screens */
+@media (min-width: 429px) and (max-width: 500px) and (min-height: 926px) {
+    .screen {
+        padding: max(2.5vh, 24px) max(2vw, 18px) max(8vh, 65px);
+    }
+    
+    .brand .logo-circle {
+        width: clamp(100px, 12vw, 120px);
+        height: clamp(100px, 12vw, 120px);
+    }
+    
+    .brand h1 {
+        font-size: clamp(26px, 6vw, 30px);
+    }
+    
+    .field-label {
+        font-size: clamp(20px, 4vw, 22px);
+    }
+    
+    .field-input input {
+        font-size: clamp(20px, 4vw, 22px);
+    }
+    
+    .helper-links {
+        font-size: clamp(17px, 2.5vw, 20px);
+    }
+    
+    .vneid-text {
+        font-size: clamp(20px, 3.5vw, 24px);
+    }
+    
+    .register {
+        font-size: clamp(20px, 3.2vw, 24px);
+    }
+}
+
+/* Android phones - Various sizes */
+@media (min-width: 360px) and (max-width: 414px) and (min-height: 640px) and (max-height: 896px) {
+    .screen {
+        padding: max(2vh, 18px) max(2vw, 14px) max(7vh, 55px);
+    }
+    
+    .brand .logo-circle {
+        width: clamp(85px, 11vw, 105px);
+        height: clamp(85px, 11vw, 105px);
+    }
+    
+    .brand h1 {
+        font-size: clamp(22px, 5.5vw, 26px);
+    }
+    
+    .field-label {
+        font-size: clamp(17px, 4vw, 19px);
+    }
+    
+    .field-input input {
+        font-size: clamp(17px, 4vw, 19px);
+    }
+    
+    .helper-links {
+        font-size: clamp(14px, 2.5vw, 17px);
+    }
+    
+    .vneid-text {
+        font-size: clamp(17px, 3.5vw, 21px);
+    }
+    
+    .register {
+        font-size: clamp(17px, 3.2vw, 21px);
+    }
+}
 
 /* Landscape orientation adjustments */
 @media (orientation: landscape) and (max-height: 500px) {
@@ -418,5 +572,45 @@ input, textarea {
     .nav-bar {
         bottom: max(0.5vh, 6px);
         min-height: max(50px, 6vh);
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .screen {
+        padding: max(3vh, 30px) max(3vw, 24px) max(10vh, 80px);
+    }
+    
+    .brand .logo-circle {
+        width: clamp(120px, 15vw, 150px);
+        height: clamp(120px, 15vw, 150px);
+    }
+    
+    .brand h1 {
+        font-size: clamp(32px, 7vw, 40px);
+    }
+    
+    .field-label {
+        font-size: clamp(24px, 5vw, 28px);
+    }
+    
+    .field-input input {
+        font-size: clamp(24px, 5vw, 28px);
+    }
+    
+    .helper-links {
+        font-size: clamp(20px, 3vw, 24px);
+    }
+    
+    .vneid-text {
+        font-size: clamp(24px, 4vw, 28px);
+    }
+    
+    .register {
+        font-size: clamp(24px, 4vw, 28px);
+    }
+    
+    .btn-primary {
+        font-size: clamp(20px, 4vw, 24px);
     }
 }

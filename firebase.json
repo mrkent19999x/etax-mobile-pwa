@@ -6,9 +6,18 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "headers": [
+      {
+        "source": "**/*.@(png|jpg|jpeg|gif|webp)",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }]
+      }
+    ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "!/assets/**",
         "destination": "/login.html"
       }
     ]

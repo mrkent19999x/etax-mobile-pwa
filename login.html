@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
+    <!-- Khóa xoay màn hình -->
+    <meta name="screen-orientation" content="portrait">
+    <meta name="mobile-web-app-orientations" content="portrait">
     <style>
         /* PWA Responsive Auto-Scale Styles */
         @media all and (display-mode: standalone) {
@@ -29,10 +32,9 @@
                 padding-right: max(env(safe-area-inset-right), 2vw) !important;
                 height: 100vh !important;
                 box-sizing: border-box !important;
-                overflow-y: auto !important;
-                overflow-x: hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-                overscroll-behavior: contain !important;
+                overflow: hidden !important;
+                overscroll-behavior: none !important;
+                -webkit-overflow-scrolling: none !important;
             }
             
             .nav-bar {
@@ -61,16 +63,16 @@
                 left: 0 !important;
                 right: 0 !important;
                 overscroll-behavior: none !important;
+                -webkit-overflow-scrolling: none !important;
             }
             
             .screen {
                 padding: max(2vh, 20px) max(2vw, 16px) max(8vh, 60px) !important;
                 height: 100vh !important;
                 box-sizing: border-box !important;
-                overflow-y: auto !important;
-                overflow-x: hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-                overscroll-behavior: contain !important;
+                overflow: hidden !important;
+                overscroll-behavior: none !important;
+                -webkit-overflow-scrolling: none !important;
             }
             
             .nav-bar {
@@ -193,6 +195,76 @@
     </div>
 
     <script>
+        // 🔒 KHÓA SCROLL HOÀN TOÀN VÀ XOAY MÀN HÌNH
+        document.addEventListener('DOMContentLoaded', function() {
+            // Khóa scroll trên body và html
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+            
+            // Khóa scroll bằng JavaScript
+            document.addEventListener('wheel', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            document.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            document.addEventListener('keydown', function(e) {
+                // Khóa các phím scroll (Page Up, Page Down, Home, End, Arrow keys)
+                if ([33, 34, 35, 36, 37, 38, 39, 40].includes(e.keyCode)) {
+                    e.preventDefault();
+                }
+            });
+            
+            // Khóa scroll bằng CSS
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.height = '100%';
+            
+            // 🔒 KHÓA XOAY MÀN HÌNH
+            // Khóa orientation bằng JavaScript
+            if (screen.orientation) {
+                screen.orientation.lock('portrait').catch(function(err) {
+                    console.log('Orientation lock failed:', err);
+                });
+            }
+            
+            // Khóa orientation bằng CSS
+            document.body.style.orientation = 'portrait';
+            
+            // Ngăn xoay màn hình bằng cách khóa resize
+            window.addEventListener('resize', function() {
+                if (window.innerHeight < window.innerWidth) {
+                    // Nếu xoay ngang, force về portrait
+                    document.body.style.transform = 'rotate(90deg)';
+                    document.body.style.width = '100vh';
+                    document.body.style.height = '100vw';
+                } else {
+                    // Reset về portrait
+                    document.body.style.transform = 'rotate(0deg)';
+                    document.body.style.width = '100%';
+                    document.body.style.height = '100%';
+                }
+            });
+            
+            // Khóa orientation change event
+            window.addEventListener('orientationchange', function() {
+                setTimeout(function() {
+                    if (window.innerHeight < window.innerWidth) {
+                        // Force về portrait mode
+                        document.body.style.transform = 'rotate(90deg)';
+                        document.body.style.width = '100vh';
+                        document.body.style.height = '100vw';
+                    } else {
+                        document.body.style.transform = 'rotate(0deg)';
+                        document.body.style.width = '100%';
+                        document.body.style.height = '100%';
+                    }
+                }, 100);
+            });
+        });
+        
         document.getElementById('togglePassword').addEventListener('click', function () {
             const passwordInput = document.getElementById('password');
             const toggleIcon = this;
