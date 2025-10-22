@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <script src="/src/services/auth-guard.js"></script>
+  <script src="../../src/services/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- PWA Meta Tags -->
@@ -192,33 +192,21 @@ div[onclick]:active {
         <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 20px;">
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/tl1.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/tl1.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Thiết lập ảnh<br>đại diện</span>
-            </div>
-          </div>
-          <div style="text-align: center; width: 200px;">
-            <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/tl2.png" style="width: 65px; height: 65px;" /><br>
-              <span style="display: inline-block; line-height: 1.4;">Đổi mật khẩu<br>đăng nhập</span>
-            </div>
-          </div>
-          <div style="text-align: center; width: 200px;">
-            <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/tl3.png" style="width: 65px; height: 65px;" /><br>
-              <span style="display: inline-block; line-height: 1.4;">Đăng nhập<br>bằng vân tay/<br>FaceID</span>
             </div>
           </div>
         </div>        
         <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 20px;">
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/tl4.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/tl4.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Đăng ký kênh<br>nhận thông tin</span>
             </div>
           </div>
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/tl5.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/tl5.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Chức năng<br>hay dùng</span>
             </div>
           </div>
@@ -235,7 +223,7 @@ div[onclick]:active {
         document.addEventListener('DOMContentLoaded', function() {
             const loggedInUser = localStorage.getItem('etax_logged_in_user');
             if (!loggedInUser) {
-                // // window.location.href = '/login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
+                // // window.location.href = '../../login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
                 return;
             }
             console.log('✅ Page loaded for user:', loggedInUser);

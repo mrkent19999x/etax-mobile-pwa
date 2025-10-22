@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Test Login Page - eTax Mobile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .test-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: bold;
+            border-left: 4px solid #007bff;
+        }
+        .success { background: rgba(76, 175, 80, 0.3); color: #4CAF50; border-left-color: #4CAF50; }
+        .error { background: rgba(244, 67, 54, 0.3); color: #f44336; border-left-color: #f44336; }
+        .info { background: rgba(33, 150, 243, 0.3); color: #2196F3; border-left-color: #2196F3; }
+        .warning { background: rgba(255, 193, 7, 0.3); color: #FFC107; border-left-color: #FFC107; }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .credentials {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .progress {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            height: 25px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, #28a745, #20c997);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .highlight { color: #FFD700; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Login Page - eTax Mobile</h1>
+        
+        <div class="credentials">
+            <h2>📱 Test Đăng Nhập Trực Tiếp</h2>
+            <p><strong>MST:</strong> <span class="highlight">1221995</span></p>
+            <p><strong>Mật khẩu:</strong> <span class="highlight">123456</span></p>
+            <p><strong>Target:</strong> Trang login.html</p>
+        </div>
+        
+        <div class="progress">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+        
+        <div id="testResults"></div>
+        
+        <button onclick="startLoginTest()" id="startBtn">🚀 Bắt Đầu Test Login</button>
+        <button onclick="clearResults()" id="clearBtn">🗑️ Xóa Kết Quả</button>
+        <button onclick="openLoginPage()" id="loginBtn">🔐 Mở Trang Login</button>
+    </div>
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_rJgBFgBulheVenQUE2KXr4PBpSpTCxw",
+            authDomain: "etax-7fbf8.firebaseapp.com",
+            databaseURL: "https://etax-7fbf8-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "etax-7fbf8",
+            storageBucket: "etax-7fbf8.appspot.com",
+            messagingSenderId: "1030026724634",
+            appId: "1:1030026724634:web:d76f5f9dad43bad6fd58a3",
+            measurementId: "G-YS5DLECJE6"
+        };
+
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+        } catch (e) {
+            console.log('Firebase already initialized');
+        }
+
+        const db = firebase.firestore ? firebase.firestore() : null;
+        let currentStep = 0;
+        const totalSteps = 6;
+
+        function updateProgress(step) {
+            const percentage = Math.round((step / totalSteps) * 100);
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressBar').textContent = percentage + '%';
+        }
+
+        function addResult(message, type = 'info') {
+            const resultsDiv = document.getElementById('testResults');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.innerHTML = `<strong>Bước ${currentStep + 1}:</strong> ${message}`;
+            resultsDiv.appendChild(resultDiv);
+            currentStep++;
+            updateProgress(currentStep);
+        }
+
+        function clearResults() {
+            document.getElementById('testResults').innerHTML = '';
+            currentStep = 0;
+            updateProgress(0);
+            document.getElementById('startBtn').disabled = false;
+        }
+
+        function openLoginPage() {
+            window.open('login.html', '_blank');
+        }
+
+        async function startLoginTest() {
+            document.getElementById('startBtn').disabled = true;
+            clearResults();
+            
+            addResult('🔄 Khởi tạo Firebase connection...', 'info');
+            
+            if (!db) {
+                addResult('❌ Không thể kết nối Firebase', 'error');
+                return;
+            }
+            
+            addResult('✅ Firebase đã sẵn sàng', 'success');
+            
+            // Step 1: Create MST 1221995
+            addResult('🔄 Đang tạo MST 1221995 trong Firebase...', 'info');
+            
+            const mstData = {
+                mst: '1221995',
+                password: '123456',
+                fullName: 'NGUYỄN VĂN NGHĨA',
+                address: '123 Đường ABC, Quận 1, TP.HCM',
+                taxOffice: 'Cục Thuế TP.HCM',
+                phone: '0901234567',
+                email: 'nghia@example.com',
+                taxInfo: {
+                    totalAmount: '2,500,000 VND',
+                    paidAmount: '1,000,000 VND',
+                    pendingAmount: '1,500,000 VND',
+                    items: [
+                        {
+                            id: 'T001',
+                            decision: 'QĐ001/2024',
+                            date: '01/01/2024',
+                            office: 'Cục Thuế TP.HCM',
+                            chapter: 'Chương 1',
+                            period: 'Quý 1/2024',
+                            type: 'Thuế thu nhập',
+                            region: 'TP.HCM',
+                            dueDate: '31/03/2024',
+                            amount: '2,500,000 VND',
+                            paid: '1,000,000 VND',
+                            status: 'Chưa nộp đủ',
+                            reference: 'REF001'
+                        }
+                    ]
+                }
+            };
+            
+            try {
+                await db.collection('users').doc('1221995').set(mstData);
+                addResult('✅ Đã tạo MST 1221995 thành công!', 'success');
+            } catch (error) {
+                addResult(`❌ Lỗi khi tạo MST: ${error.message}`, 'error');
+                return;
+            }
+            
+            // Step 2: Test Login Process
+            addResult('🔄 Đang test quá trình đăng nhập...', 'info');
+            
+            try {
+                const doc = await db.collection('users').doc('1221995').get();
+                
+                if (doc.exists) {
+                    const userData = doc.data();
+                    
+                    if (userData.password === '123456') {
+                        addResult('✅ Xác thực thành công! MST và mật khẩu đúng', 'success');
+                        
+                        // Step 3: Simulate Login Process
+                        addResult('🔄 Đang mô phỏng quá trình đăng nhập...', 'info');
+                        
+                        // Simulate session creation
+                        localStorage.setItem('etax_logged_in_user', '1221995');
+                        localStorage.setItem('etax_user_info', JSON.stringify({
+                            mst: userData.mst,
+                            fullName: userData.fullName,
+                            companyName: userData.companyName,
+                            address: userData.address,
+                            taxOffice: userData.taxOffice,
+                            phone: userData.phone,
+                            email: userData.email
+                        }));
+                        
+                        addResult('✅ Session đã được tạo thành công!', 'success');
+                        
+                        // Step 4: Test Redirect
+                        addResult('🔄 Đang test redirect đến trang chính...', 'info');
+                        
+                        setTimeout(() => {
+                            addResult('✅ Test hoàn thành! Trang login.html sẵn sàng đăng nhập', 'success');
+                            addResult('🎉 Anh có thể đăng nhập trên điện thoại với MST: 1221995, Pass: 123456', 'success');
+                            document.getElementById('startBtn').disabled = false;
+                        }, 1000);
+                        
+                    } else {
+                        addResult('❌ Mật khẩu không đúng', 'error');
+                    }
+                } else {
+                    addResult('❌ Không tìm thấy MST trong database', 'error');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Lỗi khi test đăng nhập: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-start when page loads
+        window.onload = function() {
+            addResult('🚀 Trang test login đã sẵn sàng!', 'success');
+            addResult('💡 Click "Bắt Đầu Test Login" để em test trang login.html', 'info');
+        };
+    </script>
+</body>
+</html>

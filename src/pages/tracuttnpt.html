@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <script src="/src/services/auth-guard.js"></script>
+  <script src="../../src/services/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- PWA Meta Tags -->
@@ -31,7 +31,7 @@
 
 <title>eTax Mobile - Tra cứu thông tin người phụ thuộc</title>
 
-<link rel="stylesheet" href="/css/etax-template.css">
+<link rel="stylesheet" href="../../css/etax-template.css">
 <style>
 /* ===== PAGE SPECIFIC STYLES ===== */
 .form-container {
@@ -131,14 +131,15 @@
             // Check if user is logged in
             const loggedInUser = localStorage.getItem('etax_logged_in_user');
             if (!loggedInUser) {
-                // // window.location.href = '/login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
+                // // window.location.href = '../../login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
                 return;
             }
 
             console.log('✅ Lookup dependent info page loaded for user:', loggedInUser);
             
             // Pre-fill MST from user info if available
-            const userInfo = JSON.parse(localStorage.getItem('etax_user_info') || '{}');
+            const userInfoString = localStorage.getItem('etax_user_info');
+            const userInfo = userInfoString ? JSON.parse(userInfoString) : {};
             if (userInfo.mst) {
                 document.getElementById('mst').value = userInfo.mst;
             }

@@ -342,7 +342,8 @@
             }
             
             // Fallback: get from localStorage
-            const selectedCert = JSON.parse(localStorage.getItem('selectedCertificate') || '{}');
+            const selectedCertString = localStorage.getItem('selectedCertificate');
+            const selectedCert = selectedCertString ? JSON.parse(selectedCertString) : {};
             return selectedCert.pdfUrl || null;
         }
 

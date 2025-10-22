@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tax Form - Clone từ ảnh</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f9;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Tax Search Form - Theo thiết kế ảnh */
+        .tax-search-form {
+            background: #fff;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .form-input {
+            width: 100%;
+            font-size: 16px;
+            color: #d32f2f;
+            font-weight: 500;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #d32f2f;
+            box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+        }
+        .form-input::placeholder {
+            color: #999;
+            font-weight: normal;
+        }
+        .btn-search {
+            width: 100%;
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-search:hover {
+            background: #b71c1c;
+            transform: translateY(-1px);
+        }
+        .btn-search:active {
+            transform: translateY(0);
+        }
+        .btn-search:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e8;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center; color: #d32f2f; margin-bottom: 30px;">
+            Test Form Tra Cứu Mã Số Thuế
+        </h2>
+        
+        <!-- Form tra cứu mã số thuế theo thiết kế ảnh -->
+        <form id="searchForm" class="tax-search-form">
+            <div class="form-group">
+                <label for="mstInput">Mã số thuế <span class="required" style="color: red;">*</span></label>
+                <input type="text" id="mstInput" class="form-input" placeholder="Nhập mã số thuế" value="048190000176">
+            </div>
+            <button type="button" class="btn-search" onclick="searchTaxInfo()">Tra cứu</button>
+        </form>
+        
+        <div id="result" class="result">
+            <strong>Kết quả tra cứu:</strong>
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Function xử lý tra cứu mã số thuế
+        function searchTaxInfo() {
+            const mstInput = document.getElementById('mstInput');
+            const mstValue = mstInput.value.trim();
+            
+            // Validation
+            if (!mstValue) {
+                alert('Vui lòng nhập mã số thuế!');
+                mstInput.focus();
+                return;
+            }
+            
+            if (mstValue.length < 10) {
+                alert('Mã số thuế phải có ít nhất 10 chữ số!');
+                mstInput.focus();
+                return;
+            }
+            
+            console.log('Tra cứu mã số thuế:', mstValue);
+            
+            // Hiệu ứng loading
+            const btn = document.querySelector('.btn-search');
+            const originalText = btn.textContent;
+            btn.textContent = 'Đang tra cứu...';
+            btn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+                
+                // Hiển thị kết quả
+                const resultDiv = document.getElementById('result');
+                const resultContent = document.getElementById('resultContent');
+                
+                resultContent.innerHTML = `
+                    <p><strong>Mã số thuế:</strong> ${mstValue}</p>
+                    <p><strong>Tên doanh nghiệp:</strong> CÔNG TY TNHH ABC</p>
+                    <p><strong>Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, TP.HCM</p>
+                    <p><strong>Trạng thái:</strong> <span style="color: green;">Hoạt động</span></p>
+                `;
+                
+                resultDiv.style.display = 'block';
+                resultDiv.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

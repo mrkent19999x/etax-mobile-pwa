@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <script src="/src/services/auth-guard.js"></script>
+  <script src="../../src/services/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>eTax Mobile - Tra cứu thông báo</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- PWA Viewport Fixes -->
+<link rel="stylesheet" href="../../css/pwa-viewport-fixes.css">
 <style>
     
     body, html { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; }
@@ -13,69 +15,142 @@
         background-color: #b71c1c; color: white; padding: 15px 20px;
         display: flex; align-items: center; justify-content: space-between;
         position: sticky; top: 0; z-index: 1000;
+        height: 60px;
     }
     .header-title { font-size: 18px; font-weight: 500; }
 
     /* Tabs Section */
     .tabs {
         display: flex;
-        background: #ff5722; /* màu cam */
-        padding: 5px;
+        background: #b71c1c; /* màu đỏ chuẩn như ảnh gốc */
+        padding: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .tab {
         flex: 1;
-        text-align: left; /* để badge bên trái dễ đọc */
+        text-align: center;
         color: white;
-        padding: 8px 10px;
+        padding: 12px 8px;
         cursor: pointer;
         position: relative;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 8px; /* khoảng cách badge và chữ */
-        border-radius: 6px;
+        gap: 4px;
+        border-radius: 8px;
+        font-size: 12px;
+        line-height: 1.2;
+        transition: all 0.3s ease;
+    }
+    .tab:hover {
+        background: rgba(255,255,255,0.15);
+        transform: translateY(-1px);
     }
     .tab.active {
-        background: rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.25);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-    /* Badge trái */
+    /* Badge số */
     .badge-left {
-        background: #d9534f;
-        color: white;
-        min-width: 18px;
-        height: 18px;
+        background: white; /* nền trắng */
+        color: #b71c1c; /* chữ số màu đỏ chuẩn */
+        min-width: 20px;
+        height: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
         font-size: 12px;
         font-weight: bold;
+        margin-bottom: 4px;
+        border: 2px solid #b71c1c; /* viền đỏ chuẩn */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-    /* Search */
-    .search {
-        display: flex; gap: 10px; padding: 10px;
-        background: #fff; border-bottom: 1px solid #eee;
+    /* Tax Search Form - Theo thiết kế ảnh */
+    .tax-search-form {
+        background: #fff;
+        padding: 20px;
+        border-bottom: 1px solid #eee;
     }
-    .search input {
-        flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 6px;
+    .form-group {
+        margin-bottom: 20px;
     }
-    .search button {
-        background: none;
-        color: #a00000;
+    .form-group label {
+        display: block;
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    .form-input {
+        width: 100%;
+        font-size: 16px;
+        color: #b71c1c;
+        font-weight: 500;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fff;
+        box-sizing: border-box;
+    }
+    .form-input:focus {
+        outline: none;
+        border-color: #b71c1c;
+        box-shadow: 0 0 0 2px rgba(183, 28, 28, 0.2);
+    }
+    .form-input::placeholder {
+        color: #999;
+        font-weight: normal;
+    }
+    .btn-search {
+        width: 100%;
+        background: #b71c1c;
+        color: white;
         border: none;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        gap: 4px;
+        padding: 15px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 500;
         cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .btn-search:hover {
+        background: #b71c1c;
+        transform: translateY(-1px);
+    }
+    .btn-search:active {
+        transform: translateY(0);
     }
     /* Notifications */
-    .notifications { padding: 10px; }
-    .time { color: #666; font-size: 12px; margin-bottom: 4px; }
-    .item {
-        background: white; padding: 10px;
-        border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-        display: block; text-decoration: none;
-        color: #333; margin-bottom: 10px;
+    .notification-list { padding: 15px; }
+    .notification-item-wrapper {
+        margin-bottom: 15px;
+    }
+    .notification-time-standalone {
+        color: #666; 
+        font-size: 12px; 
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    .notification-item {
+        background: white; 
+        padding: 15px;
+        border-radius: 8px; 
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        display: block; 
+        text-decoration: none;
+        color: #333; 
+        border: 1px solid #e0e0e0;
+        transition: all 0.2s ease;
+    }
+    .notification-item:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transform: translateY(-1px);
+    }
+    .notification-title {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.4;
     }
 
 </style>
@@ -91,22 +166,26 @@
 <div class="tabs">
     <div class="tab active">
         <span class="badge-left">0</span>
-        <div>Thông báo<br>hành chính của<br>CQT</div>
+        <div>Thông báo hành chính của CQT</div>
     </div>
     <div class="tab">
         <span class="badge-left">0</span>
-        <div>Biến động<br>nghĩa vụ thuế</div>
+        <div>Biến động nghĩa vụ thuế</div>
     </div>
     <div class="tab">
         <span class="badge-left">0</span>
-        <div>Thông báo<br>khác</div>
+        <div>Thông báo khác</div>
     </div>
 </div>
 
-<div class="search">
-    <input type="text" placeholder="Tìm theo nội dung hoặc ngày">
-    <button><i class="fas fa-plus"></i> Nâng cao</button>
-</div>
+<!-- Form tra cứu mã số thuế theo thiết kế ảnh -->
+<form id="searchForm" class="tax-search-form">
+    <div class="form-group">
+        <label for="mstInput">Mã số thuế <span class="required" style="color: red;">*</span></label>
+        <input type="text" id="mstInput" class="form-input" placeholder="Nhập mã số thuế" value="048190000176">
+    </div>
+    <button type="button" class="btn-search" onclick="searchTaxInfo()">Tra cứu</button>
+</form>
 
 <div class="notification-list" id="notificationListContainer">
     <!-- Notifications will be loaded here -->
@@ -129,58 +208,81 @@
     const db = firebase.database();
 
     document.addEventListener('DOMContentLoaded', function() {
-        const loggedInMST = localStorage.getItem('etax_logged_in_user');
-        if (!loggedInMST) {
-            // window.location.href = '/login.html'; // DISABLED FOR SIMULATOR
-            return;
-        }
-        loadNotifications(loggedInMST);
+        loadSampleNotifications();
     });
 
-    async function loadNotifications(mst) {
+    function loadSampleNotifications() {
         const container = document.getElementById('notificationListContainer');
-        container.innerHTML = '<p>Đang tải thông báo...</p>';
-
-        try {
-            const snapshot = await db.ref('notifications').orderByChild('publishDate').once('value');
-            const allNotifications = snapshot.val() || {};
-
-            const userNotifications = Object.entries(allNotifications).filter(([key, notif]) => {
-                return notif.type === 'general' || (notif.type === 'personal' && notif.targetUser === mst);
-            });
-
-            if (userNotifications.length === 0) {
-                container.innerHTML = '<p>Không có thông báo nào.</p>';
-                return;
+        
+        // Dữ liệu mẫu giống như trong hình
+        const sampleNotifications = [
+            {
+                id: '1',
+                title: 'V/v: Tài khoản giao dịch thuế điện tử',
+                publishDate: new Date('2025-08-07T20:31:41').getTime()
             }
+        ];
 
-            // Sort by publishDate descending (newest first)
-            userNotifications.sort((a, b) => b[1].publishDate - a[1].publishDate);
-
-            container.innerHTML = ''; // Clear loading message
-
-            userNotifications.forEach(([key, notif]) => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'notification-item-wrapper';
-
-                const timeDiv = document.createElement('div');
-                timeDiv.className = 'notification-time-standalone';
-                timeDiv.textContent = new Date(notif.publishDate).toLocaleString('vi-VN');
-
-                const itemLink = document.createElement('a');
-                itemLink.className = 'notification-item';
-                itemLink.href = `chi-tiet-thong-bao.html?id=${key}`;
-                itemLink.innerHTML = `<div class="notification-title">${notif.title}</div>`;
-
-                wrapper.appendChild(timeDiv);
-                wrapper.appendChild(itemLink);
-                container.appendChild(wrapper);
-            });
-
-        } catch (error) {
-            console.error("Error loading notifications:", error);
-            container.innerHTML = '<p>Lỗi khi tải thông báo.</p>';
+        if (sampleNotifications.length === 0) {
+            container.innerHTML = '<p>Không có thông báo nào.</p>';
+            return;
         }
+
+        container.innerHTML = ''; // Clear loading message
+
+        sampleNotifications.forEach((notif) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'notification-item-wrapper';
+
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'notification-time-standalone';
+            timeDiv.textContent = new Date(notif.publishDate).toLocaleString('vi-VN');
+
+            const itemLink = document.createElement('a');
+            itemLink.className = 'notification-item';
+            itemLink.href = `chi-tiet-thong-bao.html?id=${notif.id}`;
+            itemLink.innerHTML = `<div class="notification-title">${notif.title}</div>`;
+
+            wrapper.appendChild(timeDiv);
+            wrapper.appendChild(itemLink);
+            container.appendChild(wrapper);
+        });
+    }
+
+    // Function xử lý tra cứu mã số thuế
+    function searchTaxInfo() {
+        const mstInput = document.getElementById('mstInput');
+        const mstValue = mstInput.value.trim();
+        
+        // Validation
+        if (!mstValue) {
+            alert('Vui lòng nhập mã số thuế!');
+            mstInput.focus();
+            return;
+        }
+        
+        if (mstValue.length < 10) {
+            alert('Mã số thuế phải có ít nhất 10 chữ số!');
+            mstInput.focus();
+            return;
+        }
+        
+        console.log('Tra cứu mã số thuế:', mstValue);
+        
+        // Hiệu ứng loading
+        const btn = document.querySelector('.btn-search');
+        const originalText = btn.textContent;
+        btn.textContent = 'Đang tra cứu...';
+        btn.disabled = true;
+        
+        // Simulate API call
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.disabled = false;
+            
+            // Hiển thị kết quả (có thể redirect hoặc hiển thị modal)
+            alert(`Đã tra cứu thành công mã số thuế: ${mstValue}`);
+        }, 1500);
     }
 
     // ✅ PWA LOCK SETTINGS

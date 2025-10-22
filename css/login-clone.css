@@ -32,7 +32,7 @@ html, body {
     font-family: "Inter", "Roboto", "Helvetica Neue", "Segoe UI", sans-serif;
     color: #fff;
     -webkit-font-smoothing: antialiased;
-    touch-action: none !important; /* Prevent all touch scrolling */
+    touch-action: none !important; /* KHÓA HOÀN TOÀN scroll gestures */
     display: flex; /* Biến body thành container flex */
     flex-direction: column; /* Xếp các phần tử con theo chiều dọc */
 }
@@ -74,7 +74,7 @@ input, textarea {
 
 
 .screen {
-    padding: 20px 28px 5px;
+    padding: max(2vh, 20px) max(2vw, 16px) max(8vh, 60px); /* Responsive padding */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -82,24 +82,25 @@ input, textarea {
     position: relative;
     z-index: 2;
     height: 100%; /* Đặt chiều cao 100% (tương đối với body flex container) */
-    overflow: auto; /* CHO PHÉP CUỘN nội dung bên trong screen nếu bị tràn */
-    -webkit-overflow-scrolling: touch; /* Giúp cuộn mượt mà trên iOS */
+    overflow: hidden !important; /* KHÓA HOÀN TOÀN scroll trong screen */
+    overscroll-behavior: none !important; /* Prevent pull-to-refresh */
     justify-content: flex-start;
     flex: 1; /* Rất QUAN TRỌNG: Cho phép .screen lấp đầy khoảng trống */
     width: 100%; /* Thêm width để căn giữa tốt hơn */
     max-width: 100%;
+    box-sizing: border-box;
 }
 
 .brand {
-    margin-bottom: 15px;
+    margin-bottom: max(2vh, 20px); /* Responsive margin */
     flex-shrink: 0; /* Prevent shrinking */
 }
 
 .brand .logo-circle {
-    width: 120px;
-    height: 120px;
+    width: clamp(80px, 12vw, 130px); /* Auto-scale logo */
+    height: clamp(80px, 12vw, 130px);
     border-radius: 50%;
-    margin: 0 auto 12px;
+    margin: 0 auto max(1vh, 8px);
     background: transparent;
     display: flex;
     justify-content: center;
@@ -115,44 +116,48 @@ input, textarea {
 }
 
 .brand h1 {
-    font-size: 24px;
+    font-size: clamp(22px, 6vw, 32px); /* Auto-scale title */
     font-weight: 700;
-    letter-spacing: 0.3px;
+    letter-spacing: clamp(0.4px, 0.2vw, 0.8px);
     font-family: "Inter", "Roboto", sans-serif;
     margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    line-height: 1.2;
 }
 
 .login-form {
     width: 100%;
-    max-width: 360px;
+    max-width: min(90vw, 360px); /* Responsive max-width */
     text-align: left;
 }
 
 .field {
-    margin-bottom: 16px; /* Tăng margin giữa các field */
+    margin-bottom: max(1vh, 12px); /* Responsive margin */
 }
 
 .field-label {
-    font-size: 18px; /* Tăng size giống bản gốc */
+    font-size: clamp(14px, 4vw, 20px); /* Auto-scale labels */
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9); /* Tăng opacity */
-    letter-spacing: 0.2px;
-    margin-bottom: 12px; /* Tăng margin bottom */
+    color: rgba(255, 255, 255, 0.98); /* Tăng opacity */
+    letter-spacing: clamp(0.2px, 0.1vw, 0.4px);
+    margin-bottom: max(1vh, 12px); /* Responsive margin */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    line-height: 1.3;
 }
 
 .field-input {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: max(0.5vw, 8px); /* Responsive gap */
     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    padding-bottom: 12px;
+    padding-bottom: max(0.5vh, 8px); /* Responsive padding */
     position: relative;
 }
 
 
 .field-input img {
-    width: 20px;
-    height: 20px;
+    width: clamp(16px, 3vw, 24px); /* Auto-scale icons */
+    height: clamp(16px, 3vw, 24px);
     filter: none;
 }
 
@@ -161,16 +166,19 @@ input, textarea {
     background: transparent;
     border: none;
     color: #fff;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 20px); /* Auto-scale input text */
     outline: none;
-    letter-spacing: 0.2px;
+    letter-spacing: clamp(0.2px, 0.1vw, 0.4px);
     font-family: "Inter", "Roboto", sans-serif;
     font-weight: 500;
-    min-height: 44px; /* Touch-friendly minimum */
-    padding: 8px 0;
+    min-height: max(44px, 6vh); /* Responsive height */
+    padding: max(0.5vh, 8px) 0; /* Responsive padding */
     -webkit-appearance: none;
     appearance: none;
     -webkit-text-size-adjust: 100%; /* Prevent zoom on iOS */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    line-height: 1.4;
+    touch-action: manipulation; /* Allow input interaction */
 }
 
 .field-input input::placeholder {
@@ -180,19 +188,20 @@ input, textarea {
 }
 
 .toggle {
-    width: 22px;
-    height: 22px;
+    width: clamp(18px, 3vw, 24px); /* Auto-scale toggle */
+    height: clamp(18px, 3vw, 24px);
     opacity: 0.75;
+    touch-action: manipulation;
 }
 
 .helper-links {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 13px;
-    color: #ffd200;
-    margin-top: -6px;
-    padding: 0 4px;
+    font-size: clamp(11px, 2.5vw, 14px); /* Auto-scale helper text */
+    color: #ffd200; /* Giữ màu vàng như ảnh gốc */
+    margin-top: max(-0.5vh, -4px);
+    padding: 0 max(0.5vw, 4px);
 }
 
 .helper-links a {
@@ -204,24 +213,24 @@ input, textarea {
 .action-row {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-top: 20px;
-    margin-bottom: 8px;
+    gap: max(1vw, 12px); /* Responsive gap */
+    margin-top: max(1.5vh, 16px);
+    margin-bottom: max(0.5vh, 6px);
 }
 
 .btn-primary {
     flex: 1;
-    height: 50px;
+    height: max(44px, 6vh); /* Responsive height */
     min-height: 44px; /* Touch-friendly minimum */
     border: none;
     border-radius: 999px;
-    background: linear-gradient(180deg, #ff3b2f 0%, #d30000 100%);
+    background: #e60000; /* Solid red như ảnh gốc */
     color: #fff;
-    font-size: 15px;
+    font-size: clamp(13px, 3vw, 16px); /* Auto-scale button text */
     font-weight: 600;
-    letter-spacing: 0.3px;
+    letter-spacing: clamp(0.2px, 0.1vw, 0.3px);
     cursor: pointer;
-    box-shadow: 0 18px 28px rgba(182, 12, 12, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     font-family: "Inter", "Roboto", sans-serif;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
@@ -233,16 +242,17 @@ input, textarea {
 }
 
 .faceid {
-    width: 50px;
-    height: 50px;
+    width: clamp(40px, 6vw, 54px); /* Auto-scale faceid */
+    height: clamp(40px, 6vw, 54px);
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+    touch-action: manipulation;
 }
 
 .vneid {
     width: 100%;
-    max-width: 360px;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    max-width: min(90vw, 360px); /* Responsive max-width */
+    margin-top: max(0.5vh, 6px);
+    margin-bottom: max(0.5vh, 6px);
 }
 
 .vneid-button {
@@ -251,9 +261,9 @@ input, textarea {
     justify-content: space-between;
     align-items: center;
     border: none;
-    padding: 18px 20px;
+    padding: max(1vh, 12px) max(1vw, 16px); /* Responsive padding */
     min-height: 44px; /* Touch-friendly minimum */
-    border-radius: 14px;
+    border-radius: clamp(10px, 2vw, 14px);
     background: #fff;
     box-shadow: 0 15px 26px rgba(0, 0, 0, 0.3);
     -webkit-tap-highlight-color: transparent;
@@ -268,28 +278,29 @@ input, textarea {
 
 .vneid-text {
     color: #222;
-    text-align: center; /* Căn giữa giống ảnh tham khảo */
-    font-size: 17px; /* Giữ kích thước */
-    font-weight: 600; /* Tăng lên 600 để đậm giống ảnh tham khảo */
-    line-height: 1.4;
-    letter-spacing: 0.2px; /* Giảm letter spacing một chút */
+    text-align: left; /* Căn trái như ảnh gốc */
+    font-size: clamp(14px, 3.5vw, 18px); /* Auto-scale vneid text */
+    font-weight: 600; /* Tăng weight */
+    line-height: 1.5;
+    letter-spacing: clamp(0.1px, 0.05vw, 0.2px);
 }
 
 .vneid-button img {
-    width: 52px;
-    height: 52px;
-    border-radius: 10px;
+    width: clamp(40px, 8vw, 52px); /* Auto-scale vneid icon */
+    height: clamp(40px, 8vw, 52px);
+    border-radius: clamp(8px, 1.5vw, 10px);
 }
 
 .register {
     width: 100%;
-    max-width: 360px;
-    margin-top: 8px;
-    font-size: 15px; /* Tăng size chữ */
-    line-height: 1.5; /* Tăng line-height để dễ đọc */
-    color: rgba(255, 255, 255, 0.9); /* Tăng opacity để rõ hơn */
+    max-width: min(90vw, 360px); /* Responsive max-width */
+    margin-top: max(1.5vh, 16px); /* Responsive margin */
+    font-size: clamp(14px, 3.2vw, 18px); /* Tăng font size cho rõ ràng hơn */
+    line-height: 1.6; /* Tăng line-height để dễ đọc */
+    color: rgba(255, 255, 255, 0.95); /* Tăng opacity để rõ hơn */
     text-align: left;
     flex-grow: 1; /* Co giãn để lấp khoảng trống */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .register .highlight {
@@ -299,7 +310,7 @@ input, textarea {
 }
 
 .register .foreign {
-    margin-top: 14px;
+    margin-top: max(1vh, 10px); /* Responsive margin */
 }
 
 .nav-bar {
@@ -309,37 +320,39 @@ input, textarea {
     right: 0;
     display: flex;
     justify-content: space-around;
-    padding: 8px 40px 8px; /* Padding đều để chữ không bị che */
+    padding: max(1vh, 12px) max(1vw, 12px); /* Responsive padding */
     margin: 0 !important; /* Loại bỏ tất cả margin */
     background: transparent !important; /* Trong suốt hoàn toàn */
     backdrop-filter: none !important; /* Không blur */
-    min-height: 68px; /* Tăng height để đủ chỗ cho chữ */
+    min-height: max(60px, 8vh); /* Responsive height */
     box-sizing: border-box;
     z-index: 1000;
     flex-shrink: 0; /* Đảm bảo nav-bar không bị co lại */
     width: 100%;
     /* THÊM: Điều chỉnh bottom cho PWA an toàn */
-    padding-bottom: calc(8px + env(safe-area-inset-bottom));
-    min-height: calc(60px + env(safe-area-inset-bottom));
+    padding-bottom: calc(max(1vh, 12px) + env(safe-area-inset-bottom));
+    min-height: calc(max(60px, 8vh) + env(safe-area-inset-bottom));
 }
 
 .nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: max(0.5vh, 6px); /* Responsive gap */
     color: #fff;
     text-decoration: none;
-    font-size: 13px; /* Tăng size để dễ đọc */
-    opacity: 0.9; /* Tăng opacity để rõ hơn */
-    letter-spacing: 0.2px;
-    font-weight: 600; /* Tăng weight để đậm hơn */
-    min-width: 44px; /* Touch-friendly minimum */
-    min-height: 44px;
-    padding: 4px;
+    font-size: clamp(11px, 2.5vw, 14px); /* Auto-scale nav text */
+    opacity: 0.98; /* Tăng opacity để rõ hơn */
+    letter-spacing: clamp(0.2px, 0.1vw, 0.4px);
+    font-weight: 700; /* Tăng weight */
+    min-width: max(44px, 6vw); /* Responsive touch area */
+    min-height: max(44px, 6vw);
+    padding: max(0.5vh, 6px);
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     transition: opacity 0.2s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    line-height: 1.2;
 }
 
 .nav-item:active {
@@ -347,303 +360,48 @@ input, textarea {
 }
 
 .nav-item img {
-    width: 36px;
-    height: 36px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    width: clamp(32px, 5vw, 45px); /* Auto-scale nav icons */
+    height: clamp(32px, 5vw, 45px);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
-/* ===== RESPONSIVE BREAKPOINTS ===== */
-
-/* Extra Small Phones - 320px-359px (Galaxy S5, iPhone SE 1st gen) */
-@media (max-width: 359px) {
-    .screen {
-        padding: 40px 16px 90px;
-        height: 100vh;
-        overflow: hidden;
-    }
-    
-    .brand .logo-circle {
-        width: 100px;
-        height: 100px;
-    }
-    
-    .brand h1 {
-        font-size: 22px;
-    }
-    
-    .login-form {
-        max-width: 280px;
-    }
-    
-    .field-label {
-        font-size: 14px;
-    }
-    
-    .field-input input {
-        font-size: 14px;
-    }
-    
-    .btn-primary {
-        height: 48px;
-        font-size: 15px;
-    }
-    
-    .faceid {
-        width: 48px;
-        height: 48px;
-    }
-    
-    .vneid-text {
-        font-size: 15px;
-        font-weight: 600; /* Đậm hơn */
-        letter-spacing: 0.1px;
-    }
-    
-    .register {
-        font-size: 12px;
-    }
-    
-    .nav-bar {
-        padding: 0 20px;
-        bottom: 15px;
-    }
-    
-    .nav-item img {
-        width: 32px;
-        height: 32px;
-    }
-    
-    .nav-item {
-        font-size: 11px;
-    }
-}
-
-/* Small Phones - 360px-389px (Galaxy S6/S7, Pixel) */
-@media (min-width: 360px) and (max-width: 389px) {
-    .screen {
-        padding: 45px 18px 95px;
-        height: 100vh;
-        overflow: hidden;
-    }
-    
-    .brand .logo-circle {
-        width: 110px;
-        height: 110px;
-    }
-    
-    .brand h1 {
-        font-size: 24px;
-    }
-    
-    .login-form {
-        max-width: 320px;
-    }
-    
-    .field-label {
-        font-size: 15px;
-    }
-    
-    .field-input input {
-        font-size: 15px;
-    }
-    
-    .btn-primary {
-        height: 50px;
-        font-size: 15px;
-    }
-    
-    .faceid {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .vneid-text {
-        font-size: 16px;
-        font-weight: 600; /* Đậm hơn */
-        letter-spacing: 0.1px;
-    }
-    
-    .register {
-        font-size: 12px;
-    }
-    
-    .nav-bar {
-        padding: 0 24px;
-        bottom: 18px;
-    }
-    
-    .nav-item img {
-        width: 34px;
-        height: 34px;
-    }
-    
-    .nav-item {
-        font-size: 11px;
-    }
-}
-
-/* Medium Phones - 390px-413px (iPhone 12/13/14, Pixel 3) */
-@media (min-width: 390px) and (max-width: 413px) {
-    .screen {
-        padding: 50px 20px 100px;
-        height: 100vh;
-        overflow: hidden;
-    }
-    
-    .brand .logo-circle {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .brand h1 {
-        font-size: 25px;
-    }
-    
-    .login-form {
-        max-width: 340px;
-    }
-    
-    .field-label {
-        font-size: 15px;
-    }
-    
-    .field-input input {
-        font-size: 16px;
-    }
-    
-    .btn-primary {
-        height: 52px;
-        font-size: 16px;
-    }
-    
-    .faceid {
-        width: 52px;
-        height: 52px;
-    }
-    
-    .vneid-text {
-        font-size: 16px;
-        font-weight: 600; /* Đậm hơn */
-        letter-spacing: 0.1px;
-    }
-    
-    .register {
-        font-size: 13px;
-    }
-    
-    .nav-bar {
-        padding: 0 28px;
-        bottom: 20px;
-    }
-    
-    .nav-item img {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .nav-item {
-        font-size: 12px;
-    }
-}
-
-/* Large Phones - 414px+ (iPhone Plus, Pro Max, Android Large) */
-@media (min-width: 414px) {
-    .screen {
-        padding: 55px 24px 105px;
-        height: 100vh;
-        overflow: hidden;
-    }
-    
-    .brand .logo-circle {
-        width: 130px;
-        height: 130px;
-    }
-    
-    .brand h1 {
-        font-size: 26px;
-    }
-    
-    .login-form {
-        max-width: 360px;
-    }
-    
-    .field-label {
-        font-size: 16px;
-    }
-    
-    .field-input input {
-        font-size: 16px;
-    }
-    
-    .btn-primary {
-        height: 54px;
-        font-size: 16px;
-    }
-    
-    .faceid {
-        width: 54px;
-        height: 54px;
-    }
-    
-    .vneid-text {
-        font-size: 17px;
-        font-weight: 600; /* Đậm hơn giống ảnh tham khảo */
-        letter-spacing: 0.2px;
-    }
-    
-    .register {
-        font-size: 13px;
-    }
-    
-    .nav-bar {
-        padding: 0 32px;
-        bottom: 20px;
-    }
-    
-    .nav-item img {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .nav-item {
-        font-size: 12px;
-    }
-}
+/* ===== RESPONSIVE BREAKPOINTS - SIMPLIFIED ===== */
 
 /* Landscape orientation adjustments */
 @media (orientation: landscape) and (max-height: 500px) {
     .screen {
-        padding: 20px 24px 80px;
+        padding: max(1vh, 12px) max(2vw, 16px) max(6vh, 50px);
         justify-content: flex-start;
     }
     
     .brand {
-        margin-bottom: 15px;
+        margin-bottom: max(1vh, 8px);
     }
     
     .brand .logo-circle {
-        width: 80px;
-        height: 80px;
+        width: clamp(60px, 8vw, 80px);
+        height: clamp(60px, 8vw, 80px);
     }
     
     .brand h1 {
-        font-size: 20px;
-        margin-bottom: 10px;
+        font-size: clamp(18px, 4vw, 20px);
+        margin-bottom: max(0.5vh, 6px);
     }
     
     .action-row {
-        margin-top: 20px;
+        margin-top: max(1vh, 12px);
     }
     
     .vneid {
-        margin-top: 8px;
+        margin-top: max(0.5vh, 4px);
     }
     
     .register {
-        margin-top: 8px;
+        margin-top: max(0.5vh, 4px);
     }
     
     .nav-bar {
-        bottom: 10px;
+        bottom: max(0.5vh, 6px);
+        min-height: max(50px, 6vh);
     }
 }

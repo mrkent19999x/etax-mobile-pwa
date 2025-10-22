@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <script src="/src/services/auth-guard.js"></script>
+  <script src="../../src/services/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- PWA Meta Tags -->
@@ -226,19 +226,19 @@ button, input, a, div[onclick] {
         <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 20px;">
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/ti1.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/ti1.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Tra cứu bảng<br>giá tính thuế<br>phương tiện</span>
             </div>
           </div>
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/ti2.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/ti2.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Tra cứu<br>thông tin NNT</span>
             </div>
           </div>
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/ti3.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/ti3.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Tra cứu hộ kinh<br>doanh</span>
             </div>
           </div>
@@ -246,19 +246,19 @@ button, input, a, div[onclick] {
         <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 20px;">
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/ti4.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/ti4.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Công cụ tính<br>thuế TNCN</span>
             </div>
           </div>
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/nt8.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/nt8.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Quét QR-<br>Code cho Tem<br>rượu, thuốc lá<br>điện tử</span>
             </div>
           </div>
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/ti5.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/ti5.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Phản hồi về hộ<br>kinh doanh</span>
             </div>
           </div>
@@ -266,7 +266,7 @@ button, input, a, div[onclick] {
         <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 20px;">
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/nt8.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/nt8.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Tra cứu nguồn<br>gốc QR tem</span>
             </div>
           </div>
@@ -288,7 +288,7 @@ button, input, a, div[onclick] {
         document.addEventListener('DOMContentLoaded', function() {
             const loggedInUser = localStorage.getItem('etax_logged_in_user');
             if (!loggedInUser) {
-                // // window.location.href = '/login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
+                // // window.location.href = '../../login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
                 return;
             }
             console.log('✅ Page loaded for user:', loggedInUser);

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo MST 1221995</title>
+</head>
+<body>
+    <h1>Tạo MST 1221995</h1>
+    <div id="result"></div>
+    <button onclick="createMST()">Tạo MST 1221995</button>
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_rJgBFgBulheVenQUE2KXr4PBpSpTCxw",
+            authDomain: "etax-7fbf8.firebaseapp.com",
+            databaseURL: "https://etax-7fbf8-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "etax-7fbf8",
+            storageBucket: "etax-7fbf8.appspot.com",
+            messagingSenderId: "1030026724634",
+            appId: "1:1030026724634:web:d76f5f9dad43bad6fd58a3",
+            measurementId: "G-YS5DLECJE6"
+        };
+
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+        } catch (e) {
+            console.log('Firebase already initialized');
+        }
+
+        const db = firebase.firestore ? firebase.firestore() : null;
+
+        function addResult(message, type = 'info') {
+            const resultDiv = document.getElementById('result');
+            const div = document.createElement('div');
+            div.style.cssText = `
+                padding: 10px;
+                margin: 5px 0;
+                border-radius: 5px;
+                font-weight: bold;
+                ${type === 'success' ? 'background: #d4edda; color: #155724;' : 
+                  type === 'error' ? 'background: #f8d7da; color: #721c24;' : 
+                  'background: #d1ecf1; color: #0c5460;'}
+            `;
+            div.textContent = message;
+            resultDiv.appendChild(div);
+        }
+
+        async function createMST() {
+            addResult('🔄 Đang tạo MST 1221995...', 'info');
+            
+            if (!db) {
+                addResult('❌ Không thể kết nối Firebase', 'error');
+                return;
+            }
+            
+            const mstData = {
+                mst: '1221995',
+                password: '123456',
+                fullName: 'NGUYỄN VĂN NGHĨA',
+                companyName: 'Công ty TNHH Nghĩa',
+                address: '123 Đường ABC, Quận 1, TP.HCM',
+                taxOffice: 'Cục Thuế TP.HCM',
+                phone: '0901234567',
+                email: 'nghia@example.com',
+                representative: 'NGUYỄN VĂN NGHĨA',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                taxInfo: {
+                    status: 'active',
+                    type: 'individual',
+                    registrationDate: '2023-01-01'
+                }
+            };
+            
+            try {
+                await db.collection('users').doc('1221995').set(mstData);
+                addResult('✅ Đã tạo MST 1221995 thành công!', 'success');
+                addResult('📱 Anh có thể đăng nhập với MST: 1221995, Pass: 123456', 'info');
+                addResult('🔗 Link đăng nhập: http://localhost:8082/login.html', 'info');
+            } catch (error) {
+                addResult(`❌ Lỗi khi tạo MST 1221995: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto create MST when page loads
+        window.onload = function() {
+            setTimeout(() => {
+                createMST();
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

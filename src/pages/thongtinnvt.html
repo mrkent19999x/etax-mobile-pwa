@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <script src="/src/services/auth-guard.js"></script>
+  <script src="../../src/services/auth-guard.js"></script>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- PWA Meta Tags -->
@@ -31,7 +31,7 @@
   <title>Tra cứu chứng từ - eTax Mobile</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <link rel="stylesheet" href="/css/etax-template.css">
+  <link rel="stylesheet" href="../../css/etax-template.css">
   <style>
     /* ===== PAGE SPECIFIC STYLES ===== */
     * {
@@ -422,9 +422,9 @@
     <main class="content">
       <!-- Search Form -->
       <form id="searchForm">
-        <div class="form-group">
-          <label for="mstInput">Mã số thuế <span class="required" style="color: red;">*</span></label>
-          <input type="text" id="mstInput" class="form-input" placeholder="Nhập mã số thuế">
+        <div class="form-group" style="display: flex; align-items: center; gap: 12px;">
+          <label for="mstInput" style="flex: 0 0 30%; margin-bottom: 0; font-size: 16px;">Mã số thuế <span class="required" style="color: red;">*</span></label>
+          <input type="text" id="mstInput" class="form-input" placeholder="Nhập mã số thuế" style="flex: 1; border: none; font-size: 18px; color: red; background: transparent; padding: 0; box-shadow: none; outline: none;">
         </div>
 
 
@@ -772,7 +772,7 @@
 
     // ✅ PWA Performance
     if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
-      navigator.serviceWorker.register('/service-worker.js').catch(console.error);
+      navigator.serviceWorker.register('../../service-worker.js').catch(console.error);
     }
   </script>
 </body>

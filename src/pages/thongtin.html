@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <script src="/src/services/auth-guard.js"></script>
+  <script src="../../src/services/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- PWA Meta Tags -->
@@ -324,25 +324,21 @@ button:active {
             <!-- User Info Section -->
             <div class="user-section">
                 <h2 id="info-header-name">Tên đầy đủ</h2>
-                <img class="avatar" src="/assets/avatar1.png" alt="Avatar" id="info-avatar" />
+                <img class="avatar" src="../../assets/avatar1.png" alt="Avatar" id="info-avatar" />
             </div>
 
             <!-- Button Actions -->
             <div class="button-grid">
                 <button onclick="alert('Tính năng đang phát triển')">
-                    <img src="/assets/icon-change.png" alt="changeinfo" />
+                    <img src="../../assets/icon-change.png" alt="changeinfo" />
                     Thay đổi thông tin
                 </button>
                 <button onclick="alert('Tính năng đang phát triển')">
-                    <img src="/assets/icon-qr.png" alt="qr" />
+                    <img src="../../assets/icon-qr.png" alt="qr" />
                     Mã QR-Code thông tin
                 </button>
-                <button onclick="window.location.href='doimatkhau.html'">
-                    <img src="/assets/doimk.png" alt="changepass" />
-                    Đổi mật khẩu
-                </button>
                 <button onclick="alert('Tính năng đang phát triển')">
-                    <img src="/assets/icon-xoatk.png" alt="deleteacc" />
+                    <img src="../../assets/icon-xoatk.png" alt="deleteacc" />
                     Xóa tài khoản
                 </button>
             </div>
@@ -404,7 +400,7 @@ button:active {
     document.addEventListener('DOMContentLoaded', function() {
         const loggedInMST = localStorage.getItem('etax_logged_in_user');
         if (!loggedInMST) {
-            // window.location.href = '/login.html'; // DISABLED FOR SIMULATOR
+            // window.location.href = '../../login.html'; // DISABLED FOR SIMULATOR
             return;
         }
         loadAndDisplayUserInfo(loggedInMST);
@@ -412,7 +408,8 @@ button:active {
 
     function loadAndDisplayUserInfo(mst) {
         // Lấy dữ liệu từ localStorage (được lưu từ login.html)
-        const userData = JSON.parse(localStorage.getItem('etax_user_data') || 'null');
+        const userDataString = localStorage.getItem('etax_user_data');
+        const userData = userDataString ? JSON.parse(userDataString) : null;
 
         if (userData) {
             updateInfoUI(userData);

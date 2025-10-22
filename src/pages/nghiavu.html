@@ -2,7 +2,7 @@
 <html lang="vi">
 
 <head>
-  <script src="/src/services/auth-guard.min.js"></script>
+  <script src="../../src/services/auth-guard.min.js"></script>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- PWA Meta Tags -->
@@ -30,6 +30,8 @@
     }
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- PWA Viewport Fixes -->
+  <link rel="stylesheet" href="../../css/pwa-viewport-fixes.css">
 
   <title>eTax Mobile - Hỗ trợ</title>
 
@@ -234,24 +236,23 @@
 
     <div style="padding-top: 100px;">
       <div>&nbsp;</div>
-      <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 20px;">
-        <div style="text-align: center; width: 200px;">
+      <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; padding: 20px;">
+        <div style="text-align: center; width: 180px;">
           <div onclick="window.location.href='thongtinnvt.html'" style="text-align: center; cursor: pointer;">
-            <img src="/assets/nv1.png" style="width: 65px; height: 65px;" /><br>
-            <span style="display: inline-block; line-height: 1.4;">Thông tin<br>nghĩa vụ thuế</span>
+            <img src="../../assets/nv1.png" style="width: 60px; height: 60px;" /><br>
+            <span style="display: inline-block; line-height: 1.4; font-size: 14px; font-weight: 500;">Thông tin<br>nghĩa vụ thuế</span>
           </div>
         </div>
-        <div style="text-align: center; width: 200px;">
+        <div style="text-align: center; width: 180px;">
           <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-            <img src="/assets/nv2.png" style="width: 65px; height: 65px;" /><br>
-            <span style="display: inline-block; line-height: 1.4;">Thông tin<br>nghĩa vụ tài<br>chính đất đai</span>
+            <img src="../../assets/nv2.png" style="width: 60px; height: 60px;" /><br>
+            <span style="display: inline-block; line-height: 1.4; font-size: 14px; font-weight: 500;">Thông tin<br>nghĩa vụ tài<br>chính đất đai</span>
           </div>
         </div>
-        <div style="text-align: center; width: 200px;">
+        <div style="text-align: center; width: 180px;">
           <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-            <img src="/assets/nv3.png" style="width: 65px; height: 65px;" /><br>
-            <span style="display: inline-block; line-height: 1.4;">Thông tin<br>nghĩa vụ Lệ<br>phí trước bạ<br>phương
-              tiện</span>
+            <img src="../../assets/nv3.png" style="width: 60px; height: 60px;" /><br>
+            <span style="display: inline-block; line-height: 1.4; font-size: 14px; font-weight: 500;">Thông tin<br>nghĩa vụ Lệ<br>phí trước bạ<br>phương tiện</span>
           </div>
         </div>
       </div>
@@ -262,7 +263,7 @@
       document.addEventListener('DOMContentLoaded', function () {
         const loggedInUser = localStorage.getItem('etax_logged_in_user');
         if (!loggedInUser) {
-          // // window.location.href = '/login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
+          // // window.location.href = '../../login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
           return;
         }
         console.log('✅ Page loaded for user:', loggedInUser);

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <script src="/src/services/auth-guard.js"></script>
+  <script src="../../src/services/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- PWA Meta Tags -->
@@ -228,7 +228,7 @@ body {
             const loggedInUser = localStorage.getItem('etax_logged_in_user');
             if (!loggedInUser) {
                 console.log('❌ No user logged in - redirecting to login');
-                // // window.location.href = '/login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
+                // // window.location.href = '../../login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
                 return;
             }
             console.log('✅ User authenticated:', loggedInUser);

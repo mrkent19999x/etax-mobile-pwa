@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <script src="/src/services/auth-guard.js"></script>
+  <script src="../../src/services/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- PWA Meta Tags -->
@@ -226,19 +226,19 @@ button, input, a, div[onclick] {
         <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 20px;">
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/ht1.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/ht1.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Hướng dẫn sử<br>dụng</span>
             </div>
           </div>
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/ht2.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/ht2.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Liên hệ hỗ trợ</span>
             </div>
           </div>
           <div style="text-align: center; width: 200px;">
             <div onclick="window.location.href='#'" style="text-align: center; cursor: pointer;">
-              <img src="/assets/ht3.png" style="width: 65px; height: 65px;" /><br>
+              <img src="../../assets/ht3.png" style="width: 65px; height: 65px;" /><br>
               <span style="display: inline-block; line-height: 1.4;">Phiên bản ứng<br>dụng</span>
             </div>
           </div>
@@ -250,7 +250,7 @@ button, input, a, div[onclick] {
         document.addEventListener('DOMContentLoaded', function() {
             const loggedInUser = localStorage.getItem('etax_logged_in_user');
             if (!loggedInUser) {
-                // // window.location.href = '/login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
+                // // window.location.href = '../../login.html'; // DISABLED FOR SIMULATOR // DISABLED FOR SIMULATOR
                 return;
             }
             console.log('✅ Page loaded for user:', loggedInUser);

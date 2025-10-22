@@ -1,0 +1,35 @@
+{
+  "autoApplyEdits": true,
+  "autoRun": {
+    "enabled": true,
+    "allowList": [
+      "npm *",
+      "npx *", 
+      "git *",
+      "prettier *",
+      "eslint *",
+      "cd *",
+      "mkdir *",
+      "cp *",
+      "mv *",
+      "rm *"
+    ]
+  },
+  "autoFixErrors": true,
+  "browserTool": true,
+  "mcpTools": true,
+  "uiClone": {
+    "enabled": true,
+    "phases": {
+      "analysis": true,
+      "setup": true,
+      "generate": true,
+      "test": true,
+      "polish": true
+    },
+    "targetFramework": "nextjs",
+    "styling": "tailwind",
+    "components": "shadcn-ui"
+  }
+}
+
