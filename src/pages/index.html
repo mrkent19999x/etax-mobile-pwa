@@ -23,24 +23,24 @@
   <meta name="apple-mobile-web-app-title" content="eTax Mobile">
 
   <!-- Apple Touch Icons -->
-  <link rel="apple-touch-icon" href="/assets/logo.webp">
-  <link rel="apple-touch-icon" sizes="152x152" href="/assets/logo.webp">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.webp">
-  <link rel="apple-touch-icon" sizes="167x167" href="/assets/logo.webp">
+  <link rel="apple-touch-icon" href="../../assets/logo.webp">
+  <link rel="apple-touch-icon" sizes="152x152" href="../../assets/logo.webp">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/logo.webp">
+  <link rel="apple-touch-icon" sizes="167x167" href="../../assets/logo.webp">
 
   <!-- Splash Screen Images cho iOS -->
-  <link rel="apple-touch-startup-image" href="/assets/splash-2048x2732.png" sizes="2048x2732">
-  <link rel="apple-touch-startup-image" href="/assets/splash-1668x2224.png" sizes="1668x2224">
-  <link rel="apple-touch-startup-image" href="/assets/splash-1536x2048.png" sizes="1536x2048">
-  <link rel="apple-touch-startup-image" href="/assets/splash-1125x2436.png" sizes="1125x2436">
-  <link rel="apple-touch-startup-image" href="/assets/splash-1242x2208.png" sizes="1242x2208">
-  <link rel="apple-touch-startup-image" href="/assets/splash-750x1334.png" sizes="750x1334">
-  <link rel="apple-touch-startup-image" href="/assets/splash-640x1136.png" sizes="640x1136">
+  <link rel="apple-touch-startup-image" href="../../assets/splash-2048x2732.png" sizes="2048x2732">
+  <link rel="apple-touch-startup-image" href="../../assets/splash-1668x2224.png" sizes="1668x2224">
+  <link rel="apple-touch-startup-image" href="../../assets/splash-1536x2048.png" sizes="1536x2048">
+  <link rel="apple-touch-startup-image" href="../../assets/splash-1125x2436.png" sizes="1125x2436">
+  <link rel="apple-touch-startup-image" href="../../assets/splash-1242x2208.png" sizes="1242x2208">
+  <link rel="apple-touch-startup-image" href="../../assets/splash-750x1334.png" sizes="750x1334">
+  <link rel="apple-touch-startup-image" href="../../assets/splash-640x1136.png" sizes="640x1136">
 
   <!-- Microsoft PWA -->
   <meta name="msapplication-starturl" content="./index.html">
   <meta name="msapplication-TileColor" content="#b71c1c">
-  <meta name="msapplication-TileImage" content="/assets/logo.webp">
+  <meta name="msapplication-TileImage" content="../../assets/logo.webp">
 
   <!-- Tắt số điện thoại tự động link -->
   <meta name="format-detection" content="telephone=no">
@@ -144,7 +144,7 @@
       width: 100vw;
       height: 100vh !important;
       /* ✅ CỐ ĐỊNH CHIỀU CAO = VIEWPORT */
-      background-image: url('/assets/nen.png');
+      background-image: url('../../assets/nen.png');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
@@ -184,8 +184,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 95px;
-      /* ✅ REDUCED TO ALIGN WITH LOGO TEXT BOTTOM */
+      height: 80px;
+      /* ✅ REDUCED TO MATCH DESIGN */
       /* 🔒 PWA Safe Area */
       padding-top: max(12px, env(safe-area-inset-top));
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -214,14 +214,16 @@
     }
 
     .center-logo img {
-      height: 45px;
-      margin-bottom: 6px;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 2px;
     }
 
     .center-logo span {
       font-weight: bold;
-      font-size: 17px;
-      letter-spacing: 0.5px;
+      font-size: 11px;
+      letter-spacing: 0.3px;
+      margin-top: 0px;
     }
 
     /* VỊ TRÍ B: QR + Bell icons bên phải - chỉnh thẳng hàng */
@@ -233,11 +235,11 @@
     }
 
     .right-icon img {
-      height: 24px;
+      height: 22px;
     }
 
     .user-info {
-      background-image: url('/assets/backgrounftd.png');
+      background-image: url('../../assets/backgrounftd.png');
       background-size: cover;
       background-position: center;
       display: flex;
@@ -250,23 +252,23 @@
     }
 
     .avatar {
-      height: 52px;
-      width: 52px;
+      height: 48px;
+      width: 48px;
       border-radius: 50%;
       margin-right: 18px;
       border: 2px solid rgba(255, 255, 255, 0.3);
     }
 
     .userinfo-text .mst {
-      font-size: 14px;
+      font-size: 13px;
       color: #333;
       font-weight: 500;
     }
 
     .userinfo-text .username {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
-      color: #a40000;
+      color: #8B0000;
       margin-top: 2px;
     }
 
@@ -293,18 +295,19 @@
     .circle-item {
       background-color: #a40000;
       color: white;
-      padding: 12px;
+      padding: 10px;
       border-radius: 50%;
-      min-width: 80px;
-      min-height: 80px;
+      min-width: 75px;
+      min-height: 75px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 11px;
       text-align: center;
       word-break: break-word;
       white-space: normal;
+      line-height: 1.3;
     }
 
     .grid-box {
@@ -335,7 +338,7 @@
     }
 
     .grid-item img {
-      height: 35px;
+      height: 48px;
       margin-bottom: 6px;
       object-fit: contain;
     }
@@ -363,7 +366,7 @@
     }
 
     .slide-header {
-      background-image: url('/assets/back.png');
+      background-image: url('../../assets/back.png');
       background-size: cover;
       background-repeat: no-repeat;
       color: white;
@@ -682,9 +685,9 @@
 
     .grid-item span {
       display: block;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 500;
-      line-height: 1.3;
+      line-height: 1.4;
       color: #000;
     }
   </style>
@@ -693,7 +696,7 @@
     // Đăng ký Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('../../service-worker.js?v=1760452054')
+        navigator.serviceWorker.register('../../service-worker.js?v=' + Date.now())
           .then(function (registration) {
             console.log('✅ ServiceWorker registered successfully');
           })
@@ -855,9 +858,9 @@
   <div class="phone-frame">
     <div id="slideMenu" class="slide-menu">
       <div class="slide-header"
-        style="height: 327px; position: relative; background: url('/assets/sidebar/slidebg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 37px 0 0 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
-        <img src="/assets/logo.webp" class="logo"
-          style="width: 130px; height: 130px; margin-bottom: 0; margin-top: 20px;" />
+        style="height: 327px; position: relative; background: url('../../assets/sidebar/slidebg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 37px 0 0 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
+        <img src="../../assets/logo.webp" class="logo"
+          style="width: 60px; height: 60px; margin-bottom: 0; margin-top: 20px;" />
         <div class="slide-greeting"
           style="background: rgba(216,14,4,1); color: white; padding: 12px 20px; text-align: left; font-size: 22px; font-weight: 600; line-height: 1.3; box-shadow: inset 0 2px 4px rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,0.3); width: 100%; margin: 0;">
           <div>Xin chào</div>
@@ -866,51 +869,51 @@
       </div>
       <div class="slide-links" style="padding: 0; overflow-y: auto; max-height: calc(100vh - 327px);">
         <a href="index.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/trangchu.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;">
+          <img src="../../assets/trangchu.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;">
           Trang chủ
         </a>
         <a href="hoadondt.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/index1.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Hóa
+          <img src="../../assets/index1.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Hóa
           đơn điện tử
         </a>
         <a href="khaithue.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon5.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Khai
+          <img src="../../assets/icon5.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Khai
           thuế
         </a>
         <a href="dangky.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon5.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Đăng
+          <img src="../../assets/icon5.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Đăng
           ký thuế
         </a>
         <a href="ho-tro-qtt.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon6.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Hỗ
+          <img src="../../assets/icon6.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Hỗ
           trợ quyết toán thuế TNCN
         </a>
         <a href="hoso.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon7.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Tra
+          <img src="../../assets/icon7.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Tra
           cứu hồ sơ khai thuế
         </a>
         <a href="nopthue.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon8.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Nhóm
+          <img src="../../assets/icon8.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Nhóm
           chức năng nộp thuế
         </a>
         <a href="nghiavu.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon9.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Tra
+          <img src="../../assets/icon9.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Tra
           cứu nghĩa vụ thuế
         </a>
         <a href="thongbao.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon10.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Tra
+          <img src="../../assets/icon10.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Tra
           cứu thông báo
         </a>
         <a href="tienich.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon11.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Tiện
+          <img src="../../assets/icon11.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Tiện
           ích
         </a>
         <a href="hotro.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon12.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Hỗ
+          <img src="../../assets/icon12.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;"> Hỗ
           trợ
         </a>
         <a href="thietlap.html" style="padding: 16px 20px; border-bottom: 1px solid #f0f0f0;">
-          <img src="/assets/icon13.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;">
+          <img src="../../assets/icon13.png" width="32" height="32" style="object-fit: cover; margin-right: 16px;">
           Thiết lập cá nhân
         </a>
         <div style="padding: 20px; border-top: 1px solid #f0f0f0; margin-top: 10px;">
@@ -938,18 +941,18 @@
     <header class="topbar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 100px; margin: 0;">
       <div class="left-menu" onclick="openMenu()">☰</div>
       <div class="center-logo">
-        <img src="/assets/logo.webp" alt="Logo" />
+        <img src="../../assets/logo.webp" alt="Logo" />
         <span>eTax Mobile</span>
       </div>
       <div class="right-icon">
-        <img src="/assets/icon-qr.png" alt="QR" style="width: 32px; height: 32px;" />
-        <a href="thongbao.html" onclick="showNotification()"><img src="/assets/icon-bell.png" alt="Bell"
+        <img src="../../assets/icon-qr.png" alt="QR" style="width: 32px; height: 32px;" />
+        <a href="thongbao.html" onclick="showNotification()"><img src="../../assets/icon-bell.png" alt="Bell"
             style="width: 32px; height: 32px;" /></a>
       </div>
     </header>
     <!-- Container chính từ header bar xuống dưới -->
     <div class="main-container"
-      style="position: fixed; top: 70px; left: 0; right: 0; bottom: 0; height: calc(100vh - 70px); background: url('/assets/sidebar/nen.png'); background-size: cover; background-position: center; overflow: hidden;">
+      style="position: fixed; top: 70px; left: 0; right: 0; bottom: 0; height: calc(100vh - 70px); background: url('../../assets/sidebar/nen.png'); background-size: cover; background-position: center; overflow: hidden;">
       <!-- Viewport container với điểm cắt dọc -->
       <div class="viewport-container"
         style="max-width: 375px; margin: 0 auto; height: 100%; position: relative; background: transparent;">
@@ -961,12 +964,12 @@
             display: flex; align-items: center; padding: 16px; margin: 20px 2px 8px 2px; 
             min-height: 100px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 
-            <img class="avatar" src="/assets/avatar.png" alt="Avatar" style="width: 60px; height: 60px;" />
+            <img class="avatar" src="../../assets/avatar.png" alt="Avatar" style="width: 60px; height: 60px;" />
             <div class="userinfo-text" style="margin-left: 2px; flex-grow: 1;">
               <div class="mst" style="color: black; font-size: 14px; font-weight: 400;" id="user-mst">MST: ...</div>
               <div class="username"
                 style="display: flex; align-items: center; gap: 8px; white-space: nowrap; font-size: 16px; font-weight: 500; color: #5B0000; text-transform: uppercase; line-height: 1.2;">
-                <span id="user-name">(Chưa đăng nhập)</span><a href="thongtin.html"><img src="/assets/nutha.png"
+                <span id="user-name">(Chưa đăng nhập)</span><a href="thongtin.html"><img src="../../assets/nutha.png"
                     alt="Thông tin" style="width: 20px; height: 20px; margin-left: 5px;"></a>
               </div>
             </div>
@@ -976,46 +979,46 @@
             style="background-color: #ffffff; min-height: 200px; border-radius: 16px; width: 100%; max-width: 370px; margin: 8px 2px; position: relative; overflow: hidden; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <div style="display: flex; align-items: center; justify-content: space-between;">
               <h3 style="color: black; margin: 0; font-size: 18px; font-weight: 500;">Chức năng hay dùng</h3>
-              <img src="/assets/2gach.png" alt="cài đặt" style="width: 30px; height: 20px; margin-right: 10px;" />
+              <img src="../../assets/2gach.png" alt="cài đặt" style="width: 30px; height: 20px; margin-right: 10px;" />
             </div>
 
             <button onclick="scrollLeft()"
               style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); background: none; border: none; z-index: 10;">
-              <img src="/assets/arrow-left.png" style="width: 30px;" />
+              <img src="../../assets/arrow-left.png" style="width: 30px;" />
             </button>
 
             <button onclick="scrollRight()"
               style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); background: none; border: none; z-index: 10;">
-              <img src="/assets/arrow-right.png" style="width: 30px;" />
+              <img src="../../assets/arrow-right.png" style="width: 30px;" />
             </button>
 
             <div id="scrollable"
               style="display: flex; overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; gap: 12px; padding: 8px 20px 8px 20px; height: 160px; align-items: flex-start; touch-action: pan-x; position: relative; z-index: 1;">
               <div style="text-align: center; min-width: 90px; flex-shrink: 0; cursor: pointer; padding: 4px;"
                 onclick="javascript:location.href='tracuttnpt.html';">
-                <img src="/assets/icon1.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
+                <img src="../../assets/icon1.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
                 <span style="display: inline-block; line-height: 1.4; font-size: 12px; font-weight: 500;">Tra
                   cứu<br>thông tin<br>người phụ<br>thuộc</span>
               </div>
               <div style="text-align: center; min-width: 90px; flex-shrink: 0; cursor: pointer; padding: 4px;"
                 onclick="javascript:location.href='hsdkythue.html';">
-                <img src="/assets/icon2.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
+                <img src="../../assets/icon2.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
                 <span style="display: inline-block; line-height: 1.4; font-size: 12px; font-weight: 500;">Hồ sơ<br>đăng
                   ký<br>thuế</span>
               </div>
               <div style="text-align: center; min-width: 90px; flex-shrink: 0; padding: 4px;">
-                <img src="/assets/icon3.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
+                <img src="../../assets/icon3.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
                 <span style="display: inline-block; line-height: 1.4; font-size: 12px; font-weight: 500;">Hồ
                   sơ<br>quyết<br>toán thuế</span>
               </div>
               <div style="text-align: center; min-width: 90px; flex-shrink: 0; padding: 4px;">
-                <img src="/assets/icon4.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
+                <img src="../../assets/icon4.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
                 <span style="display: inline-block; line-height: 1.4; font-size: 12px; font-weight: 500;">Tra
                   cứu<br>thông tin<br>quyết<br>toán</span>
               </div>
               <div style="text-align: center; min-width: 90px; flex-shrink: 0; cursor: pointer; padding: 4px;"
                 onclick="javascript:location.href='tra-cuu-chung-tu.html';">
-                <img src="/assets/icon4.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
+                <img src="../../assets/icon4.png" style="width: 50px; height: 50px; margin-bottom: 3px;" /><br>
                 <span style="display: inline-block; line-height: 1.4; font-size: 12px; font-weight: 500;">Tra
                   cứu<br>chứng từ<br>thuế</span>
               </div>
@@ -1028,77 +1031,73 @@
             </h3>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 5px 10px 5px;">
               <div onclick="window.location.href='hoadondt.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index1.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index1.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Hoá đơn
                   điện<br>tử</span>
               </div>
+              <div onclick="window.location.href='bienlai.html'" style="text-align: center; cursor: pointer;">
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index1.png" style="width: 40px; height: 40px;">
+                </div>
+                <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Biên lai<br>điện tử</span>
+              </div>
               <div onclick="window.location.href='khaithue.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index2.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index2.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Khai thuế</span>
               </div>
               <div onclick="window.location.href='dangky.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index3.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index3.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Đăng ký thuế</span>
               </div>
               <div onclick="window.location.href='ho-tro-qtt.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index4.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index4.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Hỗ trợ quyết toán
                   thuế<br>TNCN</span>
               </div>
               <div onclick="window.location.href='nopthue.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index5.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index5.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Nhóm chức<br>năng
                   nộp<br>thuế</span>
               </div>
               <div onclick="window.location.href='nghiavu.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index6.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index6.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Tra cứu nghĩa<br>vụ
                   thuế</span>
               </div>
               <div onclick="window.location.href='thongbao.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index7.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index7.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Tra cứu
                   thông<br>báo</span>
               </div>
               <div onclick="window.location.href='tienich.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index8.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index8.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Tiện ích</span>
               </div>
               <div onclick="window.location.href='hotro.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index9.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index9.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Hỗ trợ</span>
               </div>
               <div onclick="window.location.href='thietlap.html'" style="text-align: center; cursor: pointer;">
-                <div
-                  style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
-                  <img src="/assets/index10.png" style="width: 40px; height: 40px;" />
+                <div style="background: white; border-radius: 10px; padding: 0px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 8px;">
+                  <img src="../../assets/index10.png" style="width: 40px; height: 40px;">
                 </div>
                 <span style="display: block; font-size: 13px; font-weight: 500; line-height: 1.3;">Thiết lập cá
                   nhân</span>
